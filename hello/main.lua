@@ -25,36 +25,24 @@ function pula_load(r2,name,x2,y2)
 	pula1[p4] = hc.rectangle(tx2[p4], ty2[p4], 1280 * z2, 270 * z2)
 	pula[p4] = hc.register(pula1[p4])
 	pula[p4]:setRotation(r2)
-	if tr2[p4] == math.pi then
-		ty2[p4] = y2
-	elseif tr2[p4] == 0 then
-		ty2[p4] = y2
-	elseif tr2[p4] == math.pi / 2 then
-		ty2[p4] = y2
-	end
+	ty2[p4] = y2
 	p4 = p4 + 1
 end
 function loser_load()
 	
 end
-function pula_update(vx, vy,x2,y2)
+function pula_update(vx, vy, x2, y2)
 	p1, p2, p3 = ship:collidesWith(pula[p5])
-	print(p1)
 	if p1 == true or tx2[p5] < -100 or tx2[p5] > 900 or ty2[p5] < -100 or ty2[p5] > 700 then
-		if tr2[p5] == math.pi then
-			tx2[p5] = x2
-		elseif tr2[p5] == 0 then
-			tx2[p5] = x2
-		elseif tx2[p5] == math.pi / 2 then
-			tx2[p5] = x2
-		end
+		tx2[p5] = x2
+		ty2[p5] = y2
 		pula[p5]:moveTo(x3, y3)
 	end
 	tx2[p5] = tx2[p5] + vx * love.timer.getDelta()
 	ty2[p5] = ty2[p5] + vy * love.timer.getDelta()
 	pula[p5]:move(vx * love.timer.getDelta(), vy * love.timer.getDelta())
 	p5 = p5 + 1
-	if p5 == 3 then
+	if p5 == 4 then
 		p5 = 0
 	end
 end
@@ -65,7 +53,7 @@ function pula_draw()
 	love.graphics.draw(pulak[p6], tx2[p6], ty2[p6], tr2[p6], z2, z2)
 	pula[p6]:draw("fill")
 	p6 = p6 + 1
-	if p6 == 3 then
+	if p6 == 4 then
 		p6 = 0
 	end
 end
@@ -80,7 +68,8 @@ function love.load()
 	ship:move(-186 * z, -186 * z)
 	pula_load(math.pi,"res/pula.png",x3 + 23,y3 + 5)
 	pula_load(0,"res/pula.png",x3 - 23,y3 - 5)
-	pula_load(math.pi / 2,"res/pula.png",x3,y3)
+	pula_load(math.pi / 2,"res/pula.png",x3 + 5,y3 - 23)
+	pula_load(-math.pi / 2,"res/pula.png",x3 + 5,y3 - 23)
 end
 function love.update(dt)
 	if love.keyboard.isDown("w") and y >= 0 then
@@ -110,7 +99,8 @@ function love.update(dt)
 	end
 	pula_update(-100, 0,x3 + 23,y3 + 5)
 	pula_update(100, 0,x3 - 23,y3 - 5)
-	pula_update(0, -100,x3,y3)
+	pula_update(0, 100,x3 + 5,y3 - 23)
+	pula_update(0, -100,x3 + 5,y3 - 23)
 end
 
 function love.draw()
