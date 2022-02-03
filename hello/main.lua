@@ -17,7 +17,9 @@ pula = {}
 tx2 = {}
 ty2 = {}
 tr2 = {}
-function pula_load(r2,name,x2,y2)
+erx = {}
+ery = {}
+function pula_load(r2, name, x2, y2)
 	tx2[p4] = 1000
 	ty2[p4] = 1000
 	tr2[p4] = r2
@@ -25,7 +27,19 @@ function pula_load(r2,name,x2,y2)
 	pula1[p4] = hc.rectangle(tx2[p4], ty2[p4], 1280 * z2, 270 * z2)
 	pula[p4] = hc.register(pula1[p4])
 	pula[p4]:setRotation(r2)
-	ty2[p4] = y2
+	if r == 0 then
+		erx[p4] = -23
+		ery[p4] = -5
+	elseif r == math.pi then
+		erx[p4] = 23
+		ery[p4] = 5
+	elseif r == math.pi / 2 then
+		erx[p4] = 5
+		ery[p4] = 23
+	elseif r == -math.pi / 2 then
+		erx[p4] = 5
+		ery[p4] = 23
+	end
 	p4 = p4 + 1
 end
 function loser_load()
@@ -34,9 +48,9 @@ end
 function pula_update(vx, vy, x2, y2)
 	p1, p2, p3 = ship:collidesWith(pula[p5])
 	if p1 == true or tx2[p5] < -100 or tx2[p5] > 900 or ty2[p5] < -100 or ty2[p5] > 700 then
-		tx2[p5] = x2
-		ty2[p5] = y2
-		pula[p5]:moveTo(x3, y3)
+		tx2[p5] = x2 + erx[p5]
+		ty2[p5] = y2 + ery[p5]
+		pula[p5]:moveTo(x2, y2)
 	end
 	tx2[p5] = tx2[p5] + vx * love.timer.getDelta()
 	ty2[p5] = ty2[p5] + vy * love.timer.getDelta()
@@ -66,10 +80,10 @@ function love.load()
 	ship1 = hc.polygon(x + 0,x + 65 * z, x + 35 * z,x + 65 * z, x + 35 * z,x + 225 * z, x + 140 * z,x + 225 * z, x + 140 * z,x + 0, x + 215 * z,x + 0, x + 215 * z,x + 225 * z, x + 320 * z,x + 225 * z, x + 320 * z,x + 65 * z, x + 355 * z,x + 65 * z, x + 355 * z,x + 355 * z, x + 0,x + 355 * z)
 	ship = hc.register(ship1)
 	ship:move(-186 * z, -186 * z)
-	pula_load(math.pi,"res/pula.png",x3 + 23,y3 + 5)
-	pula_load(0,"res/pula.png",x3 - 23,y3 - 5)
-	pula_load(math.pi / 2,"res/pula.png",x3 + 5,y3 - 23)
-	pula_load(-math.pi / 2,"res/pula.png",x3 + 5,y3 - 23)
+	pula_load(math.pi,"res/pula.png",x3,y3)
+	pula_load(0,"res/pula.png",x3,y3)
+	pula_load(math.pi / 2,"res/pula.png",x3,y3)
+	pula_load(-math.pi / 2,"res/pula.png",x3,y3)
 end
 function love.update(dt)
 	if love.keyboard.isDown("w") and y >= 0 then
@@ -97,10 +111,10 @@ function love.update(dt)
 		ship:setRotation(r)
 		ship:move(100 * dt, 0)
 	end
-	pula_update(-100, 0,x3 + 23,y3 + 5)
-	pula_update(100, 0,x3 - 23,y3 - 5)
-	pula_update(0, 100,x3 + 5,y3 - 23)
-	pula_update(0, -100,x3 + 5,y3 - 23)
+	pula_update(-100, 0,x3,y3)
+	pula_update(100, 0,x3,y3)
+	pula_update(0, 100,x3,y3)
+	pula_update(0, -100,x3,y3)
 end
 
 function love.draw()
@@ -108,6 +122,7 @@ function love.draw()
 	love.graphics.draw(player, x, y, r, z, z, 180, 180)
 	love.graphics.draw(loser11, x3, y3, r3, z3, z3, 640, 135)
 	ship:draw("fill")
+	pula_draw()
 	pula_draw()
 	pula_draw()
 	pula_draw()
