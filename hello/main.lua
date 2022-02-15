@@ -85,23 +85,19 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 	end
 end
 function loser_update(v3, x3, y3)
-	timer.after(3, function() p10 = 1 end)
 	if p10 == 1 then
 		tx2[p8] = ix2[p8] + erx[p8]
 		ty2[p8] = iy2[p8] + ery[p8]
 		pula[p8]:moveTo(ix2[p8], iy2[p8])
-		p8 = p8 + 1
-		tx2[p8] = ix2[p8] + erx[p8]
-		ty2[p8] = iy2[p8] + ery[p8]
-		pula[p8]:moveTo(ix2[p8], iy2[p8])
-		p8 = p8 + 1
-		tx2[p8] = ix2[p8] + erx[p8]
-		ty2[p8] = iy2[p8] + ery[p8]
-		pula[p8]:moveTo(ix2[p8], iy2[p8])
-		p8 = p8 + 1
-		tx2[p8] = ix2[p8] + erx[p8]
-		ty2[p8] = iy2[p8] + ery[p8]
-		pula[p8]:moveTo(ix2[p8], iy2[p8])
+		tx2[p8] = ix2[p8 + 6] + erx[p8]
+		ty2[p8] = iy2[p8 + 6] + ery[p8]
+		pula[p8]:moveTo(ix2[p8 + 6], iy2[p8 + 6])
+		tx2[p8] = ix2[p8 + 12] + erx[p8]
+		ty2[p8] = iy2[p8 + 12] + ery[p8]
+		pula[p8]:moveTo(ix2[p8 + 12], iy2[p8 + 12])
+		tx2[p8] = ix2[p8 + 18] + erx[p8]
+		ty2[p8] = iy2[p8 + 18] + ery[p8]
+		pula[p8]:moveTo(ix2[p8 + 18], iy2[p8 + 18])
 		p8 = p8 + 1
 	end
 	tx3[p11] = x3
@@ -111,7 +107,7 @@ function loser_update(v3, x3, y3)
 	if p11 == 1 then
 		p11 = 0
 	end
-	if p8 == 24 then
+	if p8 == 6 then
 		p8 = 0
 	end
 	p10 = 0
@@ -133,6 +129,7 @@ function loser_draw()
 	end
 end
 function love.load()
+	timer.every(1, function() p10 = 1 end)
 	player = love.graphics.newImage("res/ship.png")
 	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
 	ship = hc.register(ship1)
