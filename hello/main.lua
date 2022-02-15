@@ -70,11 +70,13 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 	iy2[p5] = y2 + oy2
 	if v2 == 1 then
 		p1, p2, p3 = ship:collidesWith(pula[p5])
-	end
-	if p1 == true then
-		tx2[p5] = 1000
-		ty2[p5] = 1000
-		pula[p5]:moveTo(1000, 1000)
+		if p1 == true then
+			tx2[p5] = 1000
+			ty2[p5] = 1000
+			pula[p5]:moveTo(1000, 1000)
+		end
+	elseif v2 == 2 then
+		p1, p2, p3 = loser:collidesWith(pula[p5])
 	end
 	tx2[p5] = tx2[p5] + vx * love.timer.getDelta()
 	ty2[p5] = ty2[p5] + vy * love.timer.getDelta()
@@ -89,15 +91,18 @@ function loser_update(v3, x3, y3)
 		tx2[p8] = ix2[p8] + erx[p8]
 		ty2[p8] = iy2[p8] + ery[p8]
 		pula[p8]:moveTo(ix2[p8], iy2[p8])
-		tx2[p8] = ix2[p8 + 6] + erx[p8]
-		ty2[p8] = iy2[p8 + 6] + ery[p8]
-		pula[p8]:moveTo(ix2[p8 + 6], iy2[p8 + 6])
-		tx2[p8] = ix2[p8 + 12] + erx[p8]
-		ty2[p8] = iy2[p8 + 12] + ery[p8]
-		pula[p8]:moveTo(ix2[p8 + 12], iy2[p8 + 12])
-		tx2[p8] = ix2[p8 + 18] + erx[p8]
-		ty2[p8] = iy2[p8 + 18] + ery[p8]
-		pula[p8]:moveTo(ix2[p8 + 18], iy2[p8 + 18])
+		p8 = p8 + 1
+		tx2[p8] = ix2[p8] + erx[p8]
+		ty2[p8] = iy2[p8] + ery[p8]
+		pula[p8]:moveTo(ix2[p8], iy2[p8])
+		p8 = p8 + 1
+		tx2[p8] = ix2[p8] + erx[p8]
+		ty2[p8] = iy2[p8] + ery[p8]
+		pula[p8]:moveTo(ix2[p8], iy2[p8])
+		p8 = p8 + 1
+		tx2[p8] = ix2[p8] + erx[p8]
+		ty2[p8] = iy2[p8] + ery[p8]
+		pula[p8]:moveTo(ix2[p8], iy2[p8])
 		p8 = p8 + 1
 	end
 	tx3[p11] = x3
@@ -107,7 +112,7 @@ function loser_update(v3, x3, y3)
 	if p11 == 1 then
 		p11 = 0
 	end
-	if p8 == 6 then
+	if p8 == 24 then
 		p8 = 0
 	end
 	p10 = 0
@@ -129,38 +134,40 @@ function loser_draw()
 	end
 end
 function love.load()
-	timer.every(1, function() p10 = 1 end)
+	timer.every(2, function() p10 = 1 end)
 	player = love.graphics.newImage("res/ship.png")
 	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
 	ship = hc.register(ship1)
 	ship:moveTo(x, y)
 	---------------------------------
 	pula_load(math.pi,"res/pula.png")
-	pula_load(math.pi,"res/pula.png")
-	pula_load(math.pi,"res/pula.png")
-	pula_load(math.pi,"res/pula.png")
-	pula_load(math.pi,"res/pula.png")
-	pula_load(math.pi,"res/pula.png")
+	pula_load(0,"res/pula.png")
+	pula_load(math.pi / 2,"res/pula.png")
+	pula_load(-math.pi / 2,"res/pula.png")
 	---------------------------------
+	pula_load(math.pi,"res/pula.png")
 	pula_load(0,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(0,"res/pula.png")
+	pula_load(math.pi / 2,"res/pula.png")
+	pula_load(-math.pi / 2,"res/pula.png")
 	---------------------------------
+	pula_load(math.pi,"res/pula.png")
+	pula_load(0,"res/pula.png")
 	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
+	pula_load(-math.pi / 2,"res/pula.png")
 	---------------------------------
+	pula_load(math.pi,"res/pula.png")
+	pula_load(0,"res/pula.png")
+	pula_load(math.pi / 2,"res/pula.png")
 	pula_load(-math.pi / 2,"res/pula.png")
+	---------------------------------
+	pula_load(math.pi,"res/pula.png")
+	pula_load(0,"res/pula.png")
+	pula_load(math.pi / 2,"res/pula.png")
 	pula_load(-math.pi / 2,"res/pula.png")
-	pula_load(-math.pi / 2,"res/pula.png")
-	pula_load(-math.pi / 2,"res/pula.png")
-	pula_load(-math.pi / 2,"res/pula.png")
+	---------------------------------
+	pula_load(math.pi,"res/pula.png")
+	pula_load(0,"res/pula.png")
+	pula_load(math.pi / 2,"res/pula.png")
 	pula_load(-math.pi / 2,"res/pula.png")
 	---------------------------------
 	pula_load(math.pi,"res/pula2.png")
@@ -221,33 +228,35 @@ function love.update(dt)
 		ship:move(100 * dt, 0)
 	end
 	-------------------------------------
-	pula_update(-100, 0, x3, y3, -50, 20,1)
-	pula_update(-100, 0, x3, y3, -50, 20,1)
-	pula_update(-100, 0, x3, y3, -50, 20,1)
-	pula_update(-100, 0, x3, y3, -50, 20,1)
-	pula_update(-100, 0, x3, y3, -50, 20,1)
-	pula_update(-100, 0, x3, y3, -50, 20,1)
+	pula_update(-200, 0, x3, y3, -50, 20,1)
+	pula_update(200, 0, x3, y3, 50, 20,1)
+	pula_update(0, 200, x3, y3, 0, 50,1)
+	pula_update(0, -200, x3, y3, 0, -25,1)
 	-------------------------------------
-	pula_update(100, 0, x3, y3, 50, 20,1)
-	pula_update(100, 0, x3, y3, 50, 20,1)
-	pula_update(100, 0, x3, y3, 50, 20,1)
-	pula_update(100, 0, x3, y3, 50, 20,1)
-	pula_update(100, 0, x3, y3, 50, 20,1)
-	pula_update(100, 0, x3, y3, 50, 20,1)
+	pula_update(-200, 0, x3, y3, -50, 20,1)
+	pula_update(200, 0, x3, y3, 50, 20,1)
+	pula_update(0, 200, x3, y3, 0, 50,1)
+	pula_update(0, -200, x3, y3, 0, -25,1)
 	-------------------------------------
-	pula_update(0, 100, x3, y3, 0, 50,1)
-	pula_update(0, 100, x3, y3, 0, 50,1)
-	pula_update(0, 100, x3, y3, 0, 50,1)
-	pula_update(0, 100, x3, y3, 0, 50,1)
-	pula_update(0, 100, x3, y3, 0, 50,1)
-	pula_update(0, 100, x3, y3, 0, 50,1)
+	pula_update(-200, 0, x3, y3, -50, 20,1)
+	pula_update(200, 0, x3, y3, 50, 20,1)
+	pula_update(0, 200, x3, y3, 0, 50,1)
+	pula_update(0, -200, x3, y3, 0, -25,1)
 	-------------------------------------
-	pula_update(0, -100, x3, y3, 0, -25,1)
-	pula_update(0, -100, x3, y3, 0, -25,1)
-	pula_update(0, -100, x3, y3, 0, -25,1)
-	pula_update(0, -100, x3, y3, 0, -25,1)
-	pula_update(0, -100, x3, y3, 0, -25,1)
-	pula_update(0, -100, x3, y3, 0, -25,1)
+	pula_update(-200, 0, x3, y3, -50, 20,1)
+	pula_update(200, 0, x3, y3, 50, 20,1)
+	pula_update(0, 200, x3, y3, 0, 50,1)
+	pula_update(0, -200, x3, y3, 0, -25,1)
+	-------------------------------------
+	pula_update(-200, 0, x3, y3, -50, 20,1)
+	pula_update(200, 0, x3, y3, 50, 20,1)
+	pula_update(0, 200, x3, y3, 0, 50,1)
+	pula_update(0, -200, x3, y3, 0, -25,1)
+	-------------------------------------
+	pula_update(-200, 0, x3, y3, -50, 20,1)
+	pula_update(200, 0, x3, y3, 50, 20,1)
+	pula_update(0, 200, x3, y3, 0, 50,1)
+	pula_update(0, -200, x3, y3, 0, -25,1)
 	-------------------------------------
 	loser_update(1, 500, 500)
 end
