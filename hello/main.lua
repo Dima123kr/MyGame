@@ -243,14 +243,14 @@ function love.update(dt)
 			p12 = 0
 		end
 		p13 = 0
-	elseif love.keyboard.isDown("space") and r == 0 and p13 == 1 then
-		tx2[p12 + 42] = x - 24 + erx[p12 + 42]
-		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+	elseif love.keyboard.isDown("space") and r == math.pi and p13 == 1 then
+		tx2[p12 + 36] = x - 24 + erx[p12 + 36]
+		ty2[p12 + 36] = y - 45 + ery[p12 + 36]
 		pula[p12 + 42]:moveTo(x - 24, y - 45)
 		p12 = p12 + 1
-		tx2[p12 + 42] = x + 24 + erx[p12 + 42]
-		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
-		pula[p12 + 42]:moveTo(x + 24, y - 45)
+		tx2[p12 + 36] = x + 24 + erx[p12 + 36]
+		ty2[p12 + 36] = y - 45 + ery[p12 + 36]
+		pula[p12 + 36]:moveTo(x + 24, y - 45)
 		p12 = p12 + 1
 		if p12 == 6 then
 			p12 = 0
