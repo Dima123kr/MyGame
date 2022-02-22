@@ -18,6 +18,7 @@ p9 = 0
 p10 = 0
 p11 = 0
 p12 = 0
+p13 = 0
 pulak = {}
 pula1 = {}
 pula = {}
@@ -83,7 +84,7 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 	ty2[p5] = ty2[p5] + vy * love.timer.getDelta()
 	pula[p5]:move(vx * love.timer.getDelta(), vy * love.timer.getDelta())
 	p5 = p5 + 1
-	if p5 == 24 then
+	if p5 == 48 then
 		p5 = 0
 	end
 end
@@ -113,7 +114,7 @@ function loser_update(v3, x3, y3)
 	if p11 == 1 then
 		p11 = 0
 	end
-	if p8 == #pula then
+	if p8 == 24 then
 		p8 = 0
 	end
 	p10 = 0
@@ -122,7 +123,7 @@ function pula_draw()
 	love.graphics.draw(pulak[p6], tx2[p6], ty2[p6], tr2[p6], z2, z2)
 	pula[p6]:draw("fill")
 	p6 = p6 + 1
-	if p6 == 24 then
+	if p6 == 48 then
 		p6 = 0
 	end
 end
@@ -136,6 +137,7 @@ function loser_draw()
 end
 function love.load()
 	timer.every(2, function() p10 = 1 end)
+	timer.every(2, function() p13 = 1 end)
 	player = love.graphics.newImage("res/ship.png")
 	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
 	ship = hc.register(ship1)
@@ -228,10 +230,58 @@ function love.update(dt)
 		ship:moveTo(x,y)
 		ship:setRotation(r)
 		ship:move(100 * dt, 0)
-	elseif love.keyboard.isDown("space") and r == 0 then
-		tx2[p12 + 25] = x + erx[p12 + 25]
-		ty2[p12 + 25] = y + ery[p12 + 25]
-		pula[p12 + 25]:moveTo(x, y)
+	elseif love.keyboard.isDown("space") and r == 0 and p13 == 1 then
+		tx2[p12 + 42] = x - 24 + erx[p12 + 42]
+		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+		pula[p12 + 42]:moveTo(x - 24, y - 45)
+		p12 = p12 + 1
+		tx2[p12 + 42] = x + 24 + erx[p12 + 42]
+		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+		pula[p12 + 42]:moveTo(x + 24, y - 45)
+		p12 = p12 + 1
+		if p12 == 6 then
+			p12 = 0
+		end
+		p13 = 0
+	elseif love.keyboard.isDown("space") and r == 0 and p13 == 1 then
+		tx2[p12 + 42] = x - 24 + erx[p12 + 42]
+		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+		pula[p12 + 42]:moveTo(x - 24, y - 45)
+		p12 = p12 + 1
+		tx2[p12 + 42] = x + 24 + erx[p12 + 42]
+		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+		pula[p12 + 42]:moveTo(x + 24, y - 45)
+		p12 = p12 + 1
+		if p12 == 6 then
+			p12 = 0
+		end
+		p13 = 0
+	elseif love.keyboard.isDown("space") and r == 0 and p13 == 1 then
+		tx2[p12 + 42] = x - 24 + erx[p12 + 42]
+		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+		pula[p12 + 42]:moveTo(x - 24, y - 45)
+		p12 = p12 + 1
+		tx2[p12 + 42] = x + 24 + erx[p12 + 42]
+		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+		pula[p12 + 42]:moveTo(x + 24, y - 45)
+		p12 = p12 + 1
+		if p12 == 6 then
+			p12 = 0
+		end
+		p13 = 0
+	elseif love.keyboard.isDown("space") and r == 0 and p13 == 1 then
+		tx2[p12 + 42] = x - 24 + erx[p12 + 42]
+		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+		pula[p12 + 42]:moveTo(x - 24, y - 45)
+		p12 = p12 + 1
+		tx2[p12 + 42] = x + 24 + erx[p12 + 42]
+		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+		pula[p12 + 42]:moveTo(x + 24, y - 45)
+		p12 = p12 + 1
+		if p12 == 6 then
+			p12 = 0
+		end
+		p13 = 0
 	end
 	-------------------------------------
 	loser_update(1, 500, 500)
@@ -267,9 +317,33 @@ function love.update(dt)
 	pula_update(0, -200, x3, y3, 0, -25,1)
 	-------------------------------------
 	pula_update(-200, 0, x, y, -50, 20,2)
+	pula_update(-200, 0, x, y, -50, 20,2)
+	pula_update(-200, 0, x, y, -50, 20,2)
+	pula_update(-200, 0, x, y, -50, 20,2)
+	pula_update(-200, 0, x, y, -50, 20,2)
+	pula_update(-200, 0, x, y, -50, 20,2)
+	-------------------------------------
 	pula_update(200, 0, x, y, 50, 20,2)
+	pula_update(200, 0, x, y, 50, 20,2)
+	pula_update(200, 0, x, y, 50, 20,2)
+	pula_update(200, 0, x, y, 50, 20,2)
+	pula_update(200, 0, x, y, 50, 20,2)
+	pula_update(200, 0, x, y, 50, 20,2)
+	-------------------------------------
 	pula_update(0, 200, x, y, 0, 50,2)
+	pula_update(0, 200, x, y, 0, 50,2)
+	pula_update(0, 200, x, y, 0, 50,2)
+	pula_update(0, 200, x, y, 0, 50,2)
+	pula_update(0, 200, x, y, 0, 50,2)
+	pula_update(0, 200, x, y, 0, 50,2)
+	-------------------------------------
 	pula_update(0, -200, x, y, 0, -25,2)
+	pula_update(0, -200, x, y, 0, -25,2)
+	pula_update(0, -200, x, y, 0, -25,2)
+	pula_update(0, -200, x, y, 0, -25,2)
+	pula_update(0, -200, x, y, 0, -25,2)
+	pula_update(0, -200, x, y, 0, -25,2)
+	-------------------------------------
 end
 
 function love.draw()
@@ -277,6 +351,30 @@ function love.draw()
 	love.graphics.draw(player, x, y, r, z, z, 180, 180)
 	ship:draw("fill")
 	loser_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
+	pula_draw()
 	pula_draw()
 	pula_draw()
 	pula_draw()
