@@ -1,12 +1,23 @@
 local hc = require "lib/hc"
 local timer = require "lib/timer"
-x = 50
-y = 50
-r = 0
+x = 150
+y = 300
+r = math.pi / 2
 z = 0.15
-x3 = 500
-y3 = 300
-r3 = 0
+x40 = 1000
+x41 = 1000
+x42 = 1000
+x43 = 1000
+x44 = 1000
+x45 = 1000
+x46 = 1000
+x47 = 1000
+x48 = 1000
+x49 = 1000
+x410 = 1000
+y4 = 10
+r4 = 0
+z4 = 0.6
 z3 = 0.05
 z2 = 0.035
 p4 = 0
@@ -19,6 +30,7 @@ p10 = 0
 p11 = 0
 p12 = 0
 p13 = 0
+p14 = 10
 pulak = {}
 pula1 = {}
 pula = {}
@@ -58,7 +70,7 @@ function pula_load(r2, name)
 	end
 	p4 = p4 + 1
 end
-function loser_load(r3)
+function loser_load(r3, v3)
 	tx3[p7] = 1000
 	ty3[p7] = 1000
 	tr3[p7] = r3
@@ -72,6 +84,7 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 	iy2[p5] = y2 + oy2
 	if v2 == 1 then
 		p1, p2, p3 = ship:collidesWith(pula[p5])
+		p14 = p14 - 1
 	elseif v2 == 2 then
 		p1, p2, p3 = loser[0]:collidesWith(pula[p5])
 	end
@@ -107,9 +120,9 @@ function loser_update(v3, x3, y3)
 		pula[p8]:moveTo(ix2[p8], iy2[p8])
 		p8 = p8 + 1
 	end
-	tx3[p11] = x3
-	ty3[p11] = y3
-	loser[p11]:moveTo(tx3[p11],ty3[p11] - 185)
+	tx3[p11] = 650
+	ty3[p11] = 300
+	loser[p11]:moveTo(tx3[p11],ty3[p11] + 15)
 	p11 = p11 + 1
 	if p11 == 1 then
 		p11 = 0
@@ -128,7 +141,7 @@ function pula_draw()
 	end
 end
 function loser_draw()
-	love.graphics.draw(loserk[p9], x3, y3, r3, z3, z3, 640, 135)
+	love.graphics.draw(loserk[p9], tx3[p9], ty3[p9], tr3[p9], z3, z3, 640, 135)
 	loser[p9]:draw("fill")
 	p9 = p9 + 1
 	if p9 == 1 then
@@ -139,70 +152,85 @@ function love.load()
 	timer.every(2, function() p10 = 1 end)
 	timer.every(2, function() p13 = 1 end)
 	player = love.graphics.newImage("res/ship.png")
+	hp0 = love.graphics.newImage("res/hp0.png")
+	hp1 = love.graphics.newImage("res/hp1.png")
+	hp2 = love.graphics.newImage("res/hp2.png")
+	hp3 = love.graphics.newImage("res/hp3.png")
+	hp4 = love.graphics.newImage("res/hp4.png")
+	hp5 = love.graphics.newImage("res/hp5.png")
+	hp6 = love.graphics.newImage("res/hp6.png")
+	hp7 = love.graphics.newImage("res/hp7.png")
+	hp8 = love.graphics.newImage("res/hp8.png")
+	hp9 = love.graphics.newImage("res/hp9.png")
+	hp10 = love.graphics.newImage("res/hp10.png")
 	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
 	ship = hc.register(ship1)
+	ship:setRotation(r)
 	ship:moveTo(x, y)
-	---------------------------------
-	loser_load(0)
-	---------------------------------
-	pula_load(math.pi,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(-math.pi / 2,"res/pula.png")
-	---------------------------------
-	pula_load(math.pi,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(-math.pi / 2,"res/pula.png")
-	---------------------------------
-	pula_load(math.pi,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(-math.pi / 2,"res/pula.png")
-	---------------------------------
-	pula_load(math.pi,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(-math.pi / 2,"res/pula.png")
-	---------------------------------
-	pula_load(math.pi,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(-math.pi / 2,"res/pula.png")
-	---------------------------------
-	pula_load(math.pi,"res/pula.png")
-	pula_load(0,"res/pula.png")
-	pula_load(math.pi / 2,"res/pula.png")
-	pula_load(-math.pi / 2,"res/pula.png")
-	---------------------------------
-	pula_load(math.pi,"res/pula2.png")
-	pula_load(math.pi,"res/pula2.png")
-	pula_load(math.pi,"res/pula2.png")
-	pula_load(math.pi,"res/pula2.png")
-	pula_load(math.pi,"res/pula2.png")
-	pula_load(math.pi,"res/pula2.png")
-	---------------------------------
-	pula_load(0,"res/pula2.png")
-	pula_load(0,"res/pula2.png")
-	pula_load(0,"res/pula2.png")
-	pula_load(0,"res/pula2.png")
-	pula_load(0,"res/pula2.png")
-	pula_load(0,"res/pula2.png")
-	---------------------------------
-	pula_load(math.pi / 2,"res/pula2.png")
-	pula_load(math.pi / 2,"res/pula2.png")
-	pula_load(math.pi / 2,"res/pula2.png")
-	pula_load(math.pi / 2,"res/pula2.png")
-	pula_load(math.pi / 2,"res/pula2.png")
-	pula_load(math.pi / 2,"res/pula2.png")
-	---------------------------------
-	pula_load(-math.pi / 2,"res/pula2.png")
-	pula_load(-math.pi / 2,"res/pula2.png")
-	pula_load(-math.pi / 2,"res/pula2.png")
-	pula_load(-math.pi / 2,"res/pula2.png")
-	pula_load(-math.pi / 2,"res/pula2.png")
-	pula_load(-math.pi / 2,"res/pula2.png")
-	---------------------------------
+	function loadd()
+		---------------------------------
+		loser_load(0)
+		---------------------------------
+		pula_load(math.pi,"res/pula.png")
+		pula_load(0,"res/pula.png")
+		pula_load(math.pi / 2,"res/pula.png")
+		pula_load(-math.pi / 2,"res/pula.png")
+		---------------------------------
+		pula_load(math.pi,"res/pula.png")
+		pula_load(0,"res/pula.png")
+		pula_load(math.pi / 2,"res/pula.png")
+		pula_load(-math.pi / 2,"res/pula.png")
+		---------------------------------
+		pula_load(math.pi,"res/pula.png")
+		pula_load(0,"res/pula.png")
+		pula_load(math.pi / 2,"res/pula.png")
+		pula_load(-math.pi / 2,"res/pula.png")
+		---------------------------------
+		pula_load(math.pi,"res/pula.png")
+		pula_load(0,"res/pula.png")
+		pula_load(math.pi / 2,"res/pula.png")
+		pula_load(-math.pi / 2,"res/pula.png")
+		---------------------------------
+		pula_load(math.pi,"res/pula.png")
+		pula_load(0,"res/pula.png")
+		pula_load(math.pi / 2,"res/pula.png")
+		pula_load(-math.pi / 2,"res/pula.png")
+		---------------------------------
+		pula_load(math.pi,"res/pula.png")
+		pula_load(0,"res/pula.png")
+		pula_load(math.pi / 2,"res/pula.png")
+		pula_load(-math.pi / 2,"res/pula.png")
+		---------------------------------
+		pula_load(math.pi,"res/pula2.png")
+		pula_load(math.pi,"res/pula2.png")
+		pula_load(math.pi,"res/pula2.png")
+		pula_load(math.pi,"res/pula2.png")
+		pula_load(math.pi,"res/pula2.png")
+		pula_load(math.pi,"res/pula2.png")
+		---------------------------------
+		pula_load(0,"res/pula2.png")
+		pula_load(0,"res/pula2.png")
+		pula_load(0,"res/pula2.png")
+		pula_load(0,"res/pula2.png")
+		pula_load(0,"res/pula2.png")
+		pula_load(0,"res/pula2.png")
+		---------------------------------
+		pula_load(math.pi / 2,"res/pula2.png")
+		pula_load(math.pi / 2,"res/pula2.png")
+		pula_load(math.pi / 2,"res/pula2.png")
+		pula_load(math.pi / 2,"res/pula2.png")
+		pula_load(math.pi / 2,"res/pula2.png")
+		pula_load(math.pi / 2,"res/pula2.png")
+		---------------------------------
+		pula_load(-math.pi / 2,"res/pula2.png")
+		pula_load(-math.pi / 2,"res/pula2.png")
+		pula_load(-math.pi / 2,"res/pula2.png")
+		pula_load(-math.pi / 2,"res/pula2.png")
+		pula_load(-math.pi / 2,"res/pula2.png")
+		pula_load(-math.pi / 2,"res/pula2.png")
+		---------------------------------
+	end
+	loadd()
 end
 function love.update(dt)
 	timer.update(dt)
@@ -212,64 +240,29 @@ function love.update(dt)
 		ship:moveTo(x,y)
 		ship:setRotation(r)
 		ship:move(0, -100 * dt)
-	elseif love.keyboard.isDown("s") and y <= 600 then
+	end
+	if love.keyboard.isDown("s") and y <= 600 then
 		y = y + 100 * dt
 		r = math.pi
 		ship:moveTo(x,y)
 		ship:setRotation(r)
 		ship:move(0, 100 * dt)
-	elseif love.keyboard.isDown("a") and x >= 0 then
+	end
+	if love.keyboard.isDown("a") and x >= 0 then
 		x = x - 100 * dt
 		r = -math.pi / 2
 		ship:moveTo(x,y)
 		ship:setRotation(r)
 		ship:move(-100 * dt, 0)
-	elseif love.keyboard.isDown("d") and x <= 800 then
+	end
+	if love.keyboard.isDown("d") and x <= 800 then
 		x = x + 100 * dt
 		r = math.pi / 2
 		ship:moveTo(x,y)
 		ship:setRotation(r)
 		ship:move(100 * dt, 0)
-	elseif love.keyboard.isDown("space") and r == 0 and p13 == 1 then
-		tx2[p12 + 42] = x - 24 + erx[p12 + 42]
-		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
-		pula[p12 + 42]:moveTo(x - 24, y - 45)
-		p12 = p12 + 1
-		tx2[p12 + 42] = x + 24 + erx[p12 + 42]
-		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
-		pula[p12 + 42]:moveTo(x + 24, y - 45)
-		p12 = p12 + 1
-		if p12 == 6 then
-			p12 = 0
-		end
-		p13 = 0
-	elseif love.keyboard.isDown("space") and r == math.pi and p13 == 1 then
-		tx2[p12 + 36] = x - 24 + erx[p12 + 36]
-		ty2[p12 + 36] = y - 45 + ery[p12 + 36]
-		pula[p12 + 42]:moveTo(x - 24, y - 45)
-		p12 = p12 + 1
-		tx2[p12 + 36] = x + 24 + erx[p12 + 36]
-		ty2[p12 + 36] = y - 45 + ery[p12 + 36]
-		pula[p12 + 36]:moveTo(x + 24, y - 45)
-		p12 = p12 + 1
-		if p12 == 6 then
-			p12 = 0
-		end
-		p13 = 0
-	elseif love.keyboard.isDown("space") and r == 0 and p13 == 1 then
-		tx2[p12 + 42] = x - 24 + erx[p12 + 42]
-		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
-		pula[p12 + 42]:moveTo(x - 24, y - 45)
-		p12 = p12 + 1
-		tx2[p12 + 42] = x + 24 + erx[p12 + 42]
-		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
-		pula[p12 + 42]:moveTo(x + 24, y - 45)
-		p12 = p12 + 1
-		if p12 == 6 then
-			p12 = 0
-		end
-		p13 = 0
-	elseif love.keyboard.isDown("space") and r == 0 and p13 == 1 then
+	end
+	if love.keyboard.isDown("space") and r == 0 and p13 == 1 then
 		tx2[p12 + 42] = x - 24 + erx[p12 + 42]
 		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
 		pula[p12 + 42]:moveTo(x - 24, y - 45)
@@ -283,120 +276,313 @@ function love.update(dt)
 		end
 		p13 = 0
 	end
-	-------------------------------------
-	loser_update(1, 500, 500)
-	-------------------------------------
-	pula_update(-200, 0, x3, y3, -50, 20,1)
-	pula_update(200, 0, x3, y3, 50, 20,1)
-	pula_update(0, 200, x3, y3, 0, 50,1)
-	pula_update(0, -200, x3, y3, 0, -25,1)
-	-------------------------------------
-	pula_update(-200, 0, x3, y3, -50, 20,1)
-	pula_update(200, 0, x3, y3, 50, 20,1)
-	pula_update(0, 200, x3, y3, 0, 50,1)
-	pula_update(0, -200, x3, y3, 0, -25,1)
-	-------------------------------------
-	pula_update(-200, 0, x3, y3, -50, 20,1)
-	pula_update(200, 0, x3, y3, 50, 20,1)
-	pula_update(0, 200, x3, y3, 0, 50,1)
-	pula_update(0, -200, x3, y3, 0, -25,1)
-	-------------------------------------
-	pula_update(-200, 0, x3, y3, -50, 20,1)
-	pula_update(200, 0, x3, y3, 50, 20,1)
-	pula_update(0, 200, x3, y3, 0, 50,1)
-	pula_update(0, -200, x3, y3, 0, -25,1)
-	-------------------------------------
-	pula_update(-200, 0, x3, y3, -50, 20,1)
-	pula_update(200, 0, x3, y3, 50, 20,1)
-	pula_update(0, 200, x3, y3, 0, 50,1)
-	pula_update(0, -200, x3, y3, 0, -25,1)
-	-------------------------------------
-	pula_update(-200, 0, x3, y3, -50, 20,1)
-	pula_update(200, 0, x3, y3, 50, 20,1)
-	pula_update(0, 200, x3, y3, 0, 50,1)
-	pula_update(0, -200, x3, y3, 0, -25,1)
-	-------------------------------------
-	pula_update(-200, 0, x, y, -50, 20,2)
-	pula_update(-200, 0, x, y, -50, 20,2)
-	pula_update(-200, 0, x, y, -50, 20,2)
-	pula_update(-200, 0, x, y, -50, 20,2)
-	pula_update(-200, 0, x, y, -50, 20,2)
-	pula_update(-200, 0, x, y, -50, 20,2)
-	-------------------------------------
-	pula_update(200, 0, x, y, 50, 20,2)
-	pula_update(200, 0, x, y, 50, 20,2)
-	pula_update(200, 0, x, y, 50, 20,2)
-	pula_update(200, 0, x, y, 50, 20,2)
-	pula_update(200, 0, x, y, 50, 20,2)
-	pula_update(200, 0, x, y, 50, 20,2)
-	-------------------------------------
-	pula_update(0, 200, x, y, 0, 50,2)
-	pula_update(0, 200, x, y, 0, 50,2)
-	pula_update(0, 200, x, y, 0, 50,2)
-	pula_update(0, 200, x, y, 0, 50,2)
-	pula_update(0, 200, x, y, 0, 50,2)
-	pula_update(0, 200, x, y, 0, 50,2)
-	-------------------------------------
-	pula_update(0, -200, x, y, 0, -25,2)
-	pula_update(0, -200, x, y, 0, -25,2)
-	pula_update(0, -200, x, y, 0, -25,2)
-	pula_update(0, -200, x, y, 0, -25,2)
-	pula_update(0, -200, x, y, 0, -25,2)
-	pula_update(0, -200, x, y, 0, -25,2)
-	-------------------------------------
+	if love.keyboard.isDown("space") and r == math.pi and p13 == 1 then
+		tx2[p12 + 36] = x + 24 + erx[p12 + 36]
+		ty2[p12 + 36] = y + 45 + ery[p12 + 36]
+		pula[p12 + 36]:moveTo(x + 24, y + 45)
+		p12 = p12 + 1
+		tx2[p12 + 36] = x - 24 + erx[p12 + 36]
+		ty2[p12 + 36] = y + 45 + ery[p12 + 36]
+		pula[p12 + 36]:moveTo(x - 24, y + 45)
+		p12 = p12 + 1
+		if p12 == 6 then
+			p12 = 0
+		end
+		p13 = 0
+	end
+	if love.keyboard.isDown("space") and r == math.pi / 2 and p13 == 1 then
+		tx2[p12 + 30] = x + 45 + erx[p12 + 30]
+		ty2[p12 + 30] = y - 24 + ery[p12 + 30]
+		pula[p12 + 30]:moveTo(x + 45, y - 24)
+		p12 = p12 + 1
+		tx2[p12 + 30] = x + 45 + erx[p12 + 30]
+		ty2[p12 + 30] = y + 24 + ery[p12 + 30]
+		pula[p12 + 30]:moveTo(x + 45, y + 24)
+		p12 = p12 + 1
+		if p12 == 6 then
+			p12 = 0
+		end
+		p13 = 0
+	end
+	if love.keyboard.isDown("space") and r == -math.pi / 2 and p13 == 1 then
+		tx2[p12 + 24] = x - 45 + erx[p12 + 24]
+		ty2[p12 + 24] = y + 24 + ery[p12 + 24]
+		pula[p12 + 24]:moveTo(x - 45, y + 24)
+		p12 = p12 + 1
+		tx2[p12 + 24] = x - 45 + erx[p12 + 24]
+		ty2[p12 + 24] = y - 24 + ery[p12 + 24]
+		pula[p12 + 24]:moveTo(x - 45, y - 24)
+		p12 = p12 + 1
+		if p12 == 6 then
+			p12 = 0
+		end
+		p13 = 0
+	end
+	if p14 == 0 then
+		x40 = 10
+		x41 = 1000
+		x42 = 1000
+		x43 = 1000
+		x44 = 1000
+		x45 = 1000
+		x46 = 1000
+		x47 = 1000
+		x48 = 1000
+		x49 = 1000
+		x410 = 1000
+	elseif p14 == 1 then
+		x40 = 1000
+		x41 = 1000
+		x42 = 1000
+		x43 = 1000
+		x44 = 1000
+		x45 = 1000
+		x46 = 1000
+		x47 = 1000
+		x48 = 1000
+		x49 = 1000
+		x410 = 10
+	elseif p14 == 2 then
+		x40 = 1000
+		x41 = 1000
+		x42 = 1000
+		x43 = 1000
+		x44 = 1000
+		x45 = 1000
+		x46 = 1000
+		x47 = 1000
+		x48 = 1000
+		x49 = 10
+		x410 = 1000
+	elseif p14 == 3 then
+		x40 = 1000
+		x41 = 1000
+		x42 = 1000
+		x43 = 1000
+		x44 = 1000
+		x45 = 1000
+		x46 = 1000
+		x47 = 1000
+		x48 = 10
+		x49 = 1000
+		x410 = 1000
+	elseif p14 == 4 then
+		x40 = 1000
+		x41 = 1000
+		x42 = 1000
+		x43 = 1000
+		x44 = 1000
+		x45 = 1000
+		x46 = 1000
+		x47 = 10
+		x48 = 1000
+		x49 = 1000
+		x410 = 1000
+	elseif p14 == 5 then
+		x40 = 1000
+		x41 = 1000
+		x42 = 1000
+		x43 = 1000
+		x44 = 1000
+		x45 = 1000
+		x46 = 10
+		x47 = 1000
+		x48 = 1000
+		x49 = 1000
+		x410 = 1000
+	elseif p14 == 6 then
+		x40 = 1000
+		x41 = 1000
+		x42 = 1000
+		x43 = 1000
+		x44 = 1000
+		x45 = 10
+		x46 = 1000
+		x47 = 1000
+		x48 = 1000
+		x49 = 1000
+		x410 = 1000
+	elseif p14 == 7 then
+		x40 = 1000
+		x41 = 1000
+		x42 = 1000
+		x43 = 1000
+		x44 = 10
+		x45 = 1000
+		x46 = 1000
+		x47 = 1000
+		x48 = 1000
+		x49 = 1000
+		x410 = 1000
+	elseif p14 == 8 then
+		x40 = 1000
+		x41 = 1000
+		x42 = 1000
+		x43 = 10
+		x44 = 1000
+		x45 = 1000
+		x46 = 1000
+		x47 = 1000
+		x48 = 1000
+		x49 = 1000
+		x410 = 1000
+	elseif p14 == 9 then
+		x40 = 1000
+		x41 = 1000
+		x42 = 10
+		x43 = 1000
+		x44 = 1000
+		x45 = 1000
+		x46 = 1000
+		x47 = 1000
+		x48 = 1000
+		x49 = 1000
+		x410 = 1000
+	elseif p14 == 10 then
+		x40 = 1000
+		x41 = 10
+		x42 = 1000
+		x43 = 1000
+		x44 = 1000
+		x45 = 1000
+		x46 = 1000
+		x47 = 1000
+		x48 = 1000
+		x49 = 1000
+		x410 = 1000
+	end
+	function update()
+		-------------------------------------
+		loser_update(1, 500, 500)
+		-------------------------------------
+		pula_update(-200, 0, tx3[0], ty3[0], -50, 20,1)
+		pula_update(200, 0, tx3[0], ty3[0], 50, 20,1)
+		pula_update(0, 200, tx3[0], ty3[0], 0, 50,1)
+		pula_update(0, -200, tx3[0], ty3[0], 0, -25,1)
+		-------------------------------------
+		pula_update(-200, 0, tx3[0], ty3[0], -50, 20,1)
+		pula_update(200, 0, tx3[0], ty3[0], 50, 20,1)
+		pula_update(0, 200, tx3[0], ty3[0], 0, 50,1)
+		pula_update(0, -200, tx3[0], ty3[0], 0, -25,1)
+		-------------------------------------
+		pula_update(-200, 0, tx3[0], ty3[0], -50, 20,1)
+		pula_update(200, 0, tx3[0], ty3[0], 50, 20,1)
+		pula_update(0, 200, tx3[0], ty3[0], 0, 50,1)
+		pula_update(0, -200, tx3[0], ty3[0], 0, -25,1)
+		-------------------------------------
+		pula_update(-200, 0, tx3[0], ty3[0], -50, 20,1)
+		pula_update(200, 0, tx3[0], ty3[0], 50, 20,1)
+		pula_update(0, 200, tx3[0], ty3[0], 0, 50,1)
+		pula_update(0, -200, tx3[0], ty3[0], 0, -25,1)
+		-------------------------------------
+		pula_update(-200, 0, tx3[0], ty3[0], -50, 20,1)
+		pula_update(200, 0, tx3[0], ty3[0], 50, 20,1)
+		pula_update(0, 200, tx3[0], ty3[0], 0, 50,1)
+		pula_update(0, -200, tx3[0], ty3[0], 0, -25,1)
+		-------------------------------------
+		pula_update(-200, 0, tx3[0], ty3[0], -50, 20,1)
+		pula_update(200, 0, tx3[0], ty3[0], 50, 20,1)
+		pula_update(0, 200, tx3[0], ty3[0], 0, 50,1)
+		pula_update(0, -200, tx3[0], ty3[0], 0, -25,1)
+		-------------------------------------
+		pula_update(-200, 0, x, y, -50, 20,2)
+		pula_update(-200, 0, x, y, -50, 20,2)
+		pula_update(-200, 0, x, y, -50, 20,2)
+		pula_update(-200, 0, x, y, -50, 20,2)
+		pula_update(-200, 0, x, y, -50, 20,2)
+		pula_update(-200, 0, x, y, -50, 20,2)
+		-------------------------------------
+		pula_update(200, 0, x, y, 50, 20,2)
+		pula_update(200, 0, x, y, 50, 20,2)
+		pula_update(200, 0, x, y, 50, 20,2)
+		pula_update(200, 0, x, y, 50, 20,2)
+		pula_update(200, 0, x, y, 50, 20,2)
+		pula_update(200, 0, x, y, 50, 20,2)
+		-------------------------------------
+		pula_update(0, 200, x, y, 0, 50,2)
+		pula_update(0, 200, x, y, 0, 50,2)
+		pula_update(0, 200, x, y, 0, 50,2)
+		pula_update(0, 200, x, y, 0, 50,2)
+		pula_update(0, 200, x, y, 0, 50,2)
+		pula_update(0, 200, x, y, 0, 50,2)
+		-------------------------------------
+		pula_update(0, -200, x, y, 0, -25,2)
+		pula_update(0, -200, x, y, 0, -25,2)
+		pula_update(0, -200, x, y, 0, -25,2)
+		pula_update(0, -200, x, y, 0, -25,2)
+		pula_update(0, -200, x, y, 0, -25,2)
+		pula_update(0, -200, x, y, 0, -25,2)
+		-------------------------------------
+	end
+	update()
 end
 
 function love.draw()
 	love.graphics.setColor(255, 255, 255)
 	love.graphics.draw(player, x, y, r, z, z, 180, 180)
+	love.graphics.draw(hp0, x40, y40, r4, z4, z4)
+	love.graphics.draw(hp1, x41, y41, r4, z4, z4)
+	love.graphics.draw(hp2, x42, y42, r4, z4, z4)
+	love.graphics.draw(hp3, x43, y43, r4, z4, z4)
+	love.graphics.draw(hp4, x44, y44, r4, z4, z4)
+	love.graphics.draw(hp5, x45, y45, r4, z4, z4)
+	love.graphics.draw(hp6, x46, y46, r4, z4, z4)
+	love.graphics.draw(hp7, x47, y47, r4, z4, z4)
+	love.graphics.draw(hp8, x48, y48, r4, z4, z4)
+	love.graphics.draw(hp9, x49, y49, r4, z4, z4)
+	love.graphics.draw(hp10, x410, y410, r4, z4, z4)
 	ship:draw("fill")
-	loser_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
-	pula_draw()
+	function draw()
+		loser_draw()
+		-----------------------------------
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+		pula_draw()
+	end
+	draw()
 end
