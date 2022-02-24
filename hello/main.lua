@@ -15,6 +15,17 @@ x47 = 1000
 x48 = 1000
 x49 = 1000
 x410 = 1000
+x420 = 1000
+x421 = 1000
+x422 = 1000
+x423 = 1000
+x424 = 1000
+x425 = 1000
+x426 = 1000
+x427 = 1000
+x428 = 1000
+x429 = 1000
+x4210 = 1000
 y4 = 10
 r4 = 0
 z4 = 0.6
@@ -31,6 +42,7 @@ p11 = 0
 p12 = 0
 p13 = 0
 p14 = 10
+p15 = 10
 pulak = {}
 pula1 = {}
 pula = {}
@@ -84,7 +96,6 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 	iy2[p5] = y2 + oy2
 	if v2 == 1 then
 		p1, p2, p3 = ship:collidesWith(pula[p5])
-		p14 = p14 - 1
 	elseif v2 == 2 then
 		p1, p2, p3 = loser[0]:collidesWith(pula[p5])
 	end
@@ -92,6 +103,11 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 		tx2[p5] = 1000
 		ty2[p5] = 1000
 		pula[p5]:moveTo(1000, 1000)
+		if v2 == 1 then
+			p14 = p14 - 1
+		elseif v2 == 2 then
+			p15 = p15 - 1
+		end
 	end
 	tx2[p5] = tx2[p5] + vx * love.timer.getDelta()
 	ty2[p5] = ty2[p5] + vy * love.timer.getDelta()
@@ -152,22 +168,35 @@ function love.load()
 	timer.every(2, function() p10 = 1 end)
 	timer.every(2, function() p13 = 1 end)
 	player = love.graphics.newImage("res/ship.png")
-	hp0 = love.graphics.newImage("res/hp0.png")
-	hp1 = love.graphics.newImage("res/hp1.png")
-	hp2 = love.graphics.newImage("res/hp2.png")
-	hp3 = love.graphics.newImage("res/hp3.png")
-	hp4 = love.graphics.newImage("res/hp4.png")
-	hp5 = love.graphics.newImage("res/hp5.png")
-	hp6 = love.graphics.newImage("res/hp6.png")
-	hp7 = love.graphics.newImage("res/hp7.png")
-	hp8 = love.graphics.newImage("res/hp8.png")
-	hp9 = love.graphics.newImage("res/hp9.png")
-	hp10 = love.graphics.newImage("res/hp10.png")
+	function loadhp()
+		hp1 = love.graphics.newImage("res/hp1.png")
+		hp2 = love.graphics.newImage("res/hp2.png")
+		hp3 = love.graphics.newImage("res/hp3.png")
+		hp4 = love.graphics.newImage("res/hp4.png")
+		hp5 = love.graphics.newImage("res/hp5.png")
+		hp6 = love.graphics.newImage("res/hp6.png")
+		hp7 = love.graphics.newImage("res/hp7.png")
+		hp8 = love.graphics.newImage("res/hp8.png")
+		hp9 = love.graphics.newImage("res/hp9.png")
+		hp10 = love.graphics.newImage("res/hp10.png")
+		----------------------------------------------------
+		hpv1 = love.graphics.newImage("res/hpv1.png")
+		hpv2 = love.graphics.newImage("res/hpv2.png")
+		hpv3 = love.graphics.newImage("res/hpv3.png")
+		hpv4 = love.graphics.newImage("res/hpv4.png")
+		hpv5 = love.graphics.newImage("res/hpv5.png")
+		hpv6 = love.graphics.newImage("res/hpv6.png")
+		hpv7 = love.graphics.newImage("res/hpv7.png")
+		hpv8 = love.graphics.newImage("res/hpv8.png")
+		hpv9 = love.graphics.newImage("res/hpv9.png")
+		hpv10 = love.graphics.newImage("res/hpv10.png")
+	end
+	loadhp()
 	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
 	ship = hc.register(ship1)
 	ship:setRotation(r)
 	ship:moveTo(x, y)
-	function loadd()
+	function loadf()
 		---------------------------------
 		loser_load(0)
 		---------------------------------
@@ -230,7 +259,7 @@ function love.load()
 		pula_load(-math.pi / 2,"res/pula2.png")
 		---------------------------------
 	end
-	loadd()
+	loadf()
 end
 function love.update(dt)
 	timer.update(dt)
@@ -318,139 +347,251 @@ function love.update(dt)
 		end
 		p13 = 0
 	end
-	if p14 == 0 then
-		x40 = 10
-		x41 = 1000
-		x42 = 1000
-		x43 = 1000
-		x44 = 1000
-		x45 = 1000
-		x46 = 1000
-		x47 = 1000
-		x48 = 1000
-		x49 = 1000
-		x410 = 1000
-	elseif p14 == 1 then
-		x40 = 1000
-		x41 = 1000
-		x42 = 1000
-		x43 = 1000
-		x44 = 1000
-		x45 = 1000
-		x46 = 1000
-		x47 = 1000
-		x48 = 1000
-		x49 = 1000
-		x410 = 10
-	elseif p14 == 2 then
-		x40 = 1000
-		x41 = 1000
-		x42 = 1000
-		x43 = 1000
-		x44 = 1000
-		x45 = 1000
-		x46 = 1000
-		x47 = 1000
-		x48 = 1000
-		x49 = 10
-		x410 = 1000
-	elseif p14 == 3 then
-		x40 = 1000
-		x41 = 1000
-		x42 = 1000
-		x43 = 1000
-		x44 = 1000
-		x45 = 1000
-		x46 = 1000
-		x47 = 1000
-		x48 = 10
-		x49 = 1000
-		x410 = 1000
-	elseif p14 == 4 then
-		x40 = 1000
-		x41 = 1000
-		x42 = 1000
-		x43 = 1000
-		x44 = 1000
-		x45 = 1000
-		x46 = 1000
-		x47 = 10
-		x48 = 1000
-		x49 = 1000
-		x410 = 1000
-	elseif p14 == 5 then
-		x40 = 1000
-		x41 = 1000
-		x42 = 1000
-		x43 = 1000
-		x44 = 1000
-		x45 = 1000
-		x46 = 10
-		x47 = 1000
-		x48 = 1000
-		x49 = 1000
-		x410 = 1000
-	elseif p14 == 6 then
-		x40 = 1000
-		x41 = 1000
-		x42 = 1000
-		x43 = 1000
-		x44 = 1000
-		x45 = 10
-		x46 = 1000
-		x47 = 1000
-		x48 = 1000
-		x49 = 1000
-		x410 = 1000
-	elseif p14 == 7 then
-		x40 = 1000
-		x41 = 1000
-		x42 = 1000
-		x43 = 1000
-		x44 = 10
-		x45 = 1000
-		x46 = 1000
-		x47 = 1000
-		x48 = 1000
-		x49 = 1000
-		x410 = 1000
-	elseif p14 == 8 then
-		x40 = 1000
-		x41 = 1000
-		x42 = 1000
-		x43 = 10
-		x44 = 1000
-		x45 = 1000
-		x46 = 1000
-		x47 = 1000
-		x48 = 1000
-		x49 = 1000
-		x410 = 1000
-	elseif p14 == 9 then
-		x40 = 1000
-		x41 = 1000
-		x42 = 10
-		x43 = 1000
-		x44 = 1000
-		x45 = 1000
-		x46 = 1000
-		x47 = 1000
-		x48 = 1000
-		x49 = 1000
-		x410 = 1000
-	elseif p14 == 10 then
-		x40 = 1000
-		x41 = 10
-		x42 = 1000
-		x43 = 1000
-		x44 = 1000
-		x45 = 1000
-		x46 = 1000
-		x47 = 1000
-		x48 = 1000
-		x49 = 1000
-		x410 = 1000
+	function hp()
+		if p14 == 1 then
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 1000
+			x44 = 1000
+			x45 = 1000
+			x46 = 1000
+			x47 = 1000
+			x48 = 1000
+			x49 = 1000
+			x410 = 10
+		elseif p14 == 2 then
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 1000
+			x44 = 1000
+			x45 = 1000
+			x46 = 1000
+			x47 = 1000
+			x48 = 1000
+			x49 = 10
+			x410 = 1000
+		elseif p14 == 3 then
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 1000
+			x44 = 1000
+			x45 = 1000
+			x46 = 1000
+			x47 = 1000
+			x48 = 10
+			x49 = 1000
+			x410 = 1000
+		elseif p14 == 4 then
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 1000
+			x44 = 1000
+			x45 = 1000
+			x46 = 1000
+			x47 = 10
+			x48 = 1000
+			x49 = 1000
+			x410 = 1000
+		elseif p14 == 5 then
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 1000
+			x44 = 1000
+			x45 = 1000
+			x46 = 10
+			x47 = 1000
+			x48 = 1000
+			x49 = 1000
+			x410 = 1000
+		elseif p14 == 6 then
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 1000
+			x44 = 1000
+			x45 = 10
+			x46 = 1000
+			x47 = 1000
+			x48 = 1000
+			x49 = 1000
+			x410 = 1000
+		elseif p14 == 7 then
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 1000
+			x44 = 10
+			x45 = 1000
+			x46 = 1000
+			x47 = 1000
+			x48 = 1000
+			x49 = 1000
+			x410 = 1000
+		elseif p14 == 8 then
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 10
+			x44 = 1000
+			x45 = 1000
+			x46 = 1000
+			x47 = 1000
+			x48 = 1000
+			x49 = 1000
+			x410 = 1000
+		elseif p14 == 9 then
+			x40 = 1000
+			x41 = 1000
+			x42 = 10
+			x43 = 1000
+			x44 = 1000
+			x45 = 1000
+			x46 = 1000
+			x47 = 1000
+			x48 = 1000
+			x49 = 1000
+			x410 = 1000
+		elseif p14 == 10 then
+			x40 = 1000
+			x41 = 10
+			x42 = 1000
+			x43 = 1000
+			x44 = 1000
+			x45 = 1000
+			x46 = 1000
+			x47 = 1000
+			x48 = 1000
+			x49 = 1000
+			x410 = 1000
+		end
+		if p15 == 1 then
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 1000
+			x424 = 1000
+			x425 = 1000
+			x426 = 1000
+			x427 = 1000
+			x428 = 1000
+			x429 = 1000
+			x4210 = 500
+		elseif p15 == 2 then
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 1000
+			x424 = 1000
+			x425 = 1000
+			x426 = 1000
+			x427 = 1000
+			x428 = 1000
+			x429 = 500
+			x4210 = 1000
+		elseif p15 == 3 then
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 1000
+			x424 = 1000
+			x425 = 1000
+			x426 = 1000
+			x427 = 1000
+			x428 = 500
+			x429 = 1000
+			x4210 = 1000
+		elseif p15 == 4 then
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 1000
+			x424 = 1000
+			x425 = 1000
+			x426 = 1000
+			x427 = 500
+			x428 = 1000
+			x429 = 1000
+			x4210 = 1000
+		elseif p15 == 5 then
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 1000
+			x424 = 1000
+			x425 = 1000
+			x426 = 500
+			x427 = 1000
+			x428 = 1000
+			x429 = 1000
+			x4210 = 1000
+		elseif p15 == 6 then
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 1000
+			x424 = 1000
+			x425 = 500
+			x426 = 1000
+			x427 = 1000
+			x428 = 1000
+			x429 = 1000
+			x4210 = 1000
+		elseif p15 == 7 then
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 1000
+			x424 = 500
+			x425 = 1000
+			x426 = 1000
+			x427 = 1000
+			x428 = 1000
+			x429 = 1000
+			x4210 = 1000
+		elseif p15 == 8 then
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 500
+			x424 = 1000
+			x425 = 1000
+			x426 = 1000
+			x427 = 1000
+			x428 = 1000
+			x429 = 1000
+			x4210 = 1000
+		elseif p15 == 9 then
+			x420 = 1000
+			x421 = 1000
+			x422 = 500
+			x423 = 1000
+			x424 = 1000
+			x425 = 1000
+			x426 = 1000
+			x427 = 1000
+			x428 = 1000
+			x429 = 1000
+			x4210 = 1000
+		elseif p15 == 10 then
+			x420 = 1000
+			x421 = 500
+			x422 = 1000
+			x423 = 1000
+			x424 = 1000
+			x425 = 1000
+			x426 = 1000
+			x427 = 1000
+			x428 = 1000
+			x429 = 1000
+			x4210 = 1000
+		end
 	end
+	hp()
 	function update()
 		-------------------------------------
 		loser_update(1, 500, 500)
@@ -519,19 +660,32 @@ end
 
 function love.draw()
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(player, x, y, r, z, z, 180, 180)
-	love.graphics.draw(hp0, x40, y40, r4, z4, z4)
-	love.graphics.draw(hp1, x41, y41, r4, z4, z4)
-	love.graphics.draw(hp2, x42, y42, r4, z4, z4)
-	love.graphics.draw(hp3, x43, y43, r4, z4, z4)
-	love.graphics.draw(hp4, x44, y44, r4, z4, z4)
-	love.graphics.draw(hp5, x45, y45, r4, z4, z4)
-	love.graphics.draw(hp6, x46, y46, r4, z4, z4)
-	love.graphics.draw(hp7, x47, y47, r4, z4, z4)
-	love.graphics.draw(hp8, x48, y48, r4, z4, z4)
-	love.graphics.draw(hp9, x49, y49, r4, z4, z4)
-	love.graphics.draw(hp10, x410, y410, r4, z4, z4)
-	ship:draw("fill")
+	function drawhp()
+		love.graphics.draw(player, x, y, r, z, z, 180, 180)
+		love.graphics.draw(hp1, x41, y4, r4, z4, z4)
+		love.graphics.draw(hp2, x42, y4, r4, z4, z4)
+		love.graphics.draw(hp3, x43, y4, r4, z4, z4)
+		love.graphics.draw(hp4, x44, y4, r4, z4, z4)
+		love.graphics.draw(hp5, x45, y4, r4, z4, z4)
+		love.graphics.draw(hp6, x46, y4, r4, z4, z4)
+		love.graphics.draw(hp7, x47, y4, r4, z4, z4)
+		love.graphics.draw(hp8, x48, y4, r4, z4, z4)
+		love.graphics.draw(hp9, x49, y4, r4, z4, z4)
+		love.graphics.draw(hp10, x410, y4, r4, z4, z4)
+		---------------------------------------------------
+		love.graphics.draw(hpv1, x421, y4, r4, z4, z4)
+		love.graphics.draw(hpv2, x422, y4, r4, z4, z4)
+		love.graphics.draw(hpv3, x423, y4, r4, z4, z4)
+		love.graphics.draw(hpv4, x424, y4, r4, z4, z4)
+		love.graphics.draw(hpv5, x425, y4, r4, z4, z4)
+		love.graphics.draw(hpv6, x426, y4, r4, z4, z4)
+		love.graphics.draw(hpv7, x427, y4, r4, z4, z4)
+		love.graphics.draw(hpv8, x428, y4, r4, z4, z4)
+		love.graphics.draw(hpv9, x429, y4, r4, z4, z4)
+		love.graphics.draw(hpv10, x4210, y4, r4, z4, z4)
+		ship:draw("fill")
+	end
+	drawhp()
 	function draw()
 		loser_draw()
 		-----------------------------------
