@@ -1,5 +1,6 @@
 local hc = require "lib/hc"
 local timer = require "lib/timer"
+math.randomseed(os.time())
 x = 150
 y = 300
 r = math.pi / 2
@@ -43,6 +44,12 @@ p12 = 0
 p13 = 0
 p14 = 10
 p15 = 10
+if p16 == nil then
+	p16 = 1
+end
+p17 = 0
+p18 = 0
+v4 = 0
 pulak = {}
 pula1 = {}
 pula = {}
@@ -83,8 +90,8 @@ function pula_load(r2, name)
 	p4 = p4 + 1
 end
 function loser_load(r3, v3)
-	tx3[p7] = 1000
-	ty3[p7] = 1000
+	tx3[p11] = 650
+	ty3[p11] = 300
 	tr3[p7] = r3
 	loserk[p7] = love.graphics.newImage("res/loser1.jpg")
 	loser1[p7] = hc.polygon(330*z3,0, 870*z3,0, 870*z3,200*z3, 1200*z3,200*z3, 1200*z3,700*z3, 1000*z3,700*z3, 1000*z3,800*z3, 200*z3,800*z3, 200*z3,700*z3, 0,700*z3, 0,200*z3, 330*z3,200*z3)
@@ -136,8 +143,10 @@ function loser_update(v3, x3, y3)
 		pula[p8]:moveTo(ix2[p8], iy2[p8])
 		p8 = p8 + 1
 	end
-	tx3[p11] = 650
-	ty3[p11] = 300
+	if p17 == 1 then
+		tx3[p11] = math.random(10, 790)
+		ty3[p11] = math.random(10, 590)
+	end
 	loser[p11]:moveTo(tx3[p11],ty3[p11] + 15)
 	p11 = p11 + 1
 	if p11 == 1 then
@@ -147,6 +156,7 @@ function loser_update(v3, x3, y3)
 		p8 = 0
 	end
 	p10 = 0
+	p17 = 0
 end
 function pula_draw()
 	love.graphics.draw(pulak[p6], tx2[p6], ty2[p6], tr2[p6], z2, z2)
@@ -167,7 +177,11 @@ end
 function love.load()
 	timer.every(2, function() p10 = 1 end)
 	timer.every(2, function() p13 = 1 end)
+	timer.every(math.random(1,5), function() p17 = 1 end)
 	player = love.graphics.newImage("res/ship.png")
+	kosmos = love.graphics.newImage("res/kosmos.png")
+	s1 = love.graphics.newFont("res/s1.ttf", 90)
+	start = love.graphics.newImage("res/start.png")
 	function loadhp()
 		hp1 = love.graphics.newImage("res/hp1.png")
 		hp2 = love.graphics.newImage("res/hp2.png")
@@ -263,90 +277,93 @@ function love.load()
 end
 function love.update(dt)
 	timer.update(dt)
-	if love.keyboard.isDown("w") and y >= 0 then
-		y = y - 100 * dt
-		r = 0
-		ship:moveTo(x,y)
-		ship:setRotation(r)
-		ship:move(0, -100 * dt)
-	end
-	if love.keyboard.isDown("s") and y <= 600 then
-		y = y + 100 * dt
-		r = math.pi
-		ship:moveTo(x,y)
-		ship:setRotation(r)
-		ship:move(0, 100 * dt)
-	end
-	if love.keyboard.isDown("a") and x >= 0 then
-		x = x - 100 * dt
-		r = -math.pi / 2
-		ship:moveTo(x,y)
-		ship:setRotation(r)
-		ship:move(-100 * dt, 0)
-	end
-	if love.keyboard.isDown("d") and x <= 800 then
-		x = x + 100 * dt
-		r = math.pi / 2
-		ship:moveTo(x,y)
-		ship:setRotation(r)
-		ship:move(100 * dt, 0)
-	end
-	if love.keyboard.isDown("space") and r == 0 and p13 == 1 then
-		tx2[p12 + 42] = x - 24 + erx[p12 + 42]
-		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
-		pula[p12 + 42]:moveTo(x - 24, y - 45)
-		p12 = p12 + 1
-		tx2[p12 + 42] = x + 24 + erx[p12 + 42]
-		ty2[p12 + 42] = y - 45 + ery[p12 + 42]
-		pula[p12 + 42]:moveTo(x + 24, y - 45)
-		p12 = p12 + 1
-		if p12 == 6 then
-			p12 = 0
+	function ship_update()
+		if love.keyboard.isDown("w") and y >= 0 and p16 == 1 then
+			y = y - 100 * dt
+			r = 0
+			ship:moveTo(x,y)
+			ship:setRotation(r)
+			ship:move(0, -100 * dt)
 		end
-		p13 = 0
-	end
-	if love.keyboard.isDown("space") and r == math.pi and p13 == 1 then
-		tx2[p12 + 36] = x + 24 + erx[p12 + 36]
-		ty2[p12 + 36] = y + 45 + ery[p12 + 36]
-		pula[p12 + 36]:moveTo(x + 24, y + 45)
-		p12 = p12 + 1
-		tx2[p12 + 36] = x - 24 + erx[p12 + 36]
-		ty2[p12 + 36] = y + 45 + ery[p12 + 36]
-		pula[p12 + 36]:moveTo(x - 24, y + 45)
-		p12 = p12 + 1
-		if p12 == 6 then
-			p12 = 0
+		if love.keyboard.isDown("s") and y <= 600 and p16 == 1 then
+			y = y + 100 * dt
+			r = math.pi
+			ship:moveTo(x,y)
+			ship:setRotation(r)
+			ship:move(0, 100 * dt)
 		end
-		p13 = 0
-	end
-	if love.keyboard.isDown("space") and r == math.pi / 2 and p13 == 1 then
-		tx2[p12 + 30] = x + 45 + erx[p12 + 30]
-		ty2[p12 + 30] = y - 24 + ery[p12 + 30]
-		pula[p12 + 30]:moveTo(x + 45, y - 24)
-		p12 = p12 + 1
-		tx2[p12 + 30] = x + 45 + erx[p12 + 30]
-		ty2[p12 + 30] = y + 24 + ery[p12 + 30]
-		pula[p12 + 30]:moveTo(x + 45, y + 24)
-		p12 = p12 + 1
-		if p12 == 6 then
-			p12 = 0
+		if love.keyboard.isDown("a") and x >= 0 and p16 == 1 then
+			x = x - 100 * dt
+			r = -math.pi / 2
+			ship:moveTo(x,y)
+			ship:setRotation(r)
+			ship:move(-100 * dt, 0)
 		end
-		p13 = 0
-	end
-	if love.keyboard.isDown("space") and r == -math.pi / 2 and p13 == 1 then
-		tx2[p12 + 24] = x - 45 + erx[p12 + 24]
-		ty2[p12 + 24] = y + 24 + ery[p12 + 24]
-		pula[p12 + 24]:moveTo(x - 45, y + 24)
-		p12 = p12 + 1
-		tx2[p12 + 24] = x - 45 + erx[p12 + 24]
-		ty2[p12 + 24] = y - 24 + ery[p12 + 24]
-		pula[p12 + 24]:moveTo(x - 45, y - 24)
-		p12 = p12 + 1
-		if p12 == 6 then
-			p12 = 0
+		if love.keyboard.isDown("d") and x <= 800 and p16 == 1 then
+			x = x + 100 * dt
+			r = math.pi / 2
+			ship:moveTo(x,y)
+			ship:setRotation(r)
+			ship:move(100 * dt, 0)
 		end
-		p13 = 0
+		if love.keyboard.isDown("space") and r == 0 and p13 == 1 and p16 == 1 then
+			tx2[p12 + 42] = x - 24 + erx[p12 + 42]
+			ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+			pula[p12 + 42]:moveTo(x - 24, y - 45)
+			p12 = p12 + 1
+			tx2[p12 + 42] = x + 24 + erx[p12 + 42]
+			ty2[p12 + 42] = y - 45 + ery[p12 + 42]
+			pula[p12 + 42]:moveTo(x + 24, y - 45)
+			p12 = p12 + 1
+			if p12 == 6 then
+				p12 = 0
+			end
+			p13 = 0
+		end
+		if love.keyboard.isDown("space") and r == math.pi and p13 == 1 and p16 == 1 then
+			tx2[p12 + 36] = x + 24 + erx[p12 + 36]
+			ty2[p12 + 36] = y + 45 + ery[p12 + 36]
+			pula[p12 + 36]:moveTo(x + 24, y + 45)
+			p12 = p12 + 1
+			tx2[p12 + 36] = x - 24 + erx[p12 + 36]
+			ty2[p12 + 36] = y + 45 + ery[p12 + 36]
+			pula[p12 + 36]:moveTo(x - 24, y + 45)
+			p12 = p12 + 1
+			if p12 == 6 then
+				p12 = 0
+			end
+			p13 = 0
+		end
+		if love.keyboard.isDown("space") and r == math.pi / 2 and p13 == 1 and p16 == 1 then
+			tx2[p12 + 30] = x + 45 + erx[p12 + 30]
+			ty2[p12 + 30] = y - 24 + ery[p12 + 30]
+			pula[p12 + 30]:moveTo(x + 45, y - 24)
+			p12 = p12 + 1
+			tx2[p12 + 30] = x + 45 + erx[p12 + 30]
+			ty2[p12 + 30] = y + 24 + ery[p12 + 30]
+			pula[p12 + 30]:moveTo(x + 45, y + 24)
+			p12 = p12 + 1
+			if p12 == 6 then
+				p12 = 0
+			end
+			p13 = 0
+		end
+		if love.keyboard.isDown("space") and r == -math.pi / 2 and p13 == 1 and p16 == 1 then
+			tx2[p12 + 24] = x - 45 + erx[p12 + 24]
+			ty2[p12 + 24] = y + 24 + ery[p12 + 24]
+			pula[p12 + 24]:moveTo(x - 45, y + 24)
+			p12 = p12 + 1
+			tx2[p12 + 24] = x - 45 + erx[p12 + 24]
+			ty2[p12 + 24] = y - 24 + ery[p12 + 24]
+			pula[p12 + 24]:moveTo(x - 45, y - 24)
+			p12 = p12 + 1
+			if p12 == 6 then
+				p12 = 0
+			end
+			p13 = 0
+		end
 	end
+	ship_update()
 	function hp()
 		if p14 == 1 then
 			x40 = 1000
@@ -660,8 +677,15 @@ end
 
 function love.draw()
 	love.graphics.setColor(255, 255, 255)
+	love.graphics.draw(player, x, y, r, z, z, 180, 180)
+	love.graphics.draw(kosmos)
+	love.graphics.setFont(s1)
+	if p16 == 0 then
+		love.graphics.setFont(s1)
+		love.graphics.print("КОСМИЧЕСКИЕ БОИ", 5)
+		love.graphics.draw(start, 225, 200, 0, 0.4, 0.4)
+	end
 	function drawhp()
-		love.graphics.draw(player, x, y, r, z, z, 180, 180)
 		love.graphics.draw(hp1, x41, y4, r4, z4, z4)
 		love.graphics.draw(hp2, x42, y4, r4, z4, z4)
 		love.graphics.draw(hp3, x43, y4, r4, z4, z4)
