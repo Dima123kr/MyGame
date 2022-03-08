@@ -47,6 +47,7 @@ p15 = 10
 p16 = 0
 p17 = 0
 p18 = 0
+p19 = 0
 v4 = 0
 pulak = {}
 pula1 = {}
@@ -158,7 +159,7 @@ function loser_update(v3)
 end
 function pula_draw()
 	love.graphics.draw(pulak[p6], tx2[p6], ty2[p6], tr2[p6], z2, z2)
-	pula[p6]:draw("fill")
+	--pula[p6]:draw("fill")
 	p6 = p6 + 1
 	if p6 == 48 then
 		p6 = 0
@@ -166,7 +167,7 @@ function pula_draw()
 end
 function loser_draw()
 	love.graphics.draw(loserk[p9], tx3[p9], ty3[p9], tr3[p9], z3, z3, 640, 135)
-	loser[p9]:draw("fill")
+	--loser[p9]:draw("fill")
 	p9 = p9 + 1
 	if p9 == 1 then
 		p9 = 0
@@ -179,8 +180,10 @@ function love.load()
 	player = love.graphics.newImage("res/ship.png")
 	kosmos = love.graphics.newImage("res/kosmos.png")
 	s1 = love.graphics.newFont("res/s1.ttf", 90)
-	start = love.graphics.newImage("res/start.png")
-	menu = love.graphics.newImage("res/menu.png")
+	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
+	ship = hc.register(ship1)
+	ship:setRotation(r)
+	ship:moveTo(x, y)
 	function loadhp()
 		hp1 = love.graphics.newImage("res/hp1.png")
 		hp2 = love.graphics.newImage("res/hp2.png")
@@ -205,10 +208,6 @@ function love.load()
 		hpv10 = love.graphics.newImage("res/hpv10.png")
 	end
 	loadhp()
-	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
-	ship = hc.register(ship1)
-	ship:setRotation(r)
-	ship:moveTo(x, y)
 	function loadf()
 		---------------------------------
 		loser_load(0)
@@ -276,7 +275,16 @@ function love.load()
 end
 function love.update(dt)
 	timer.update(dt)
+	if love.keyboard.isDown("rshift") and p16 == 0 then
+		p16 = 1
+		p19 = 1
+	end
 	function ship_update()
+		if p16 == 1 and p19 == 1 then
+			x = 150
+			y = 400
+			p19 = 0
+		end
 		if love.keyboard.isDown("w") and y >= 0 and p16 == 1 then
 			y = y - 100 * dt
 			r = 0
@@ -677,12 +685,11 @@ end
 function love.draw()
 	love.graphics.setColor(255, 255, 255)
 	love.graphics.draw(player, x, y, r, z, z, 180, 180)
+	ship:draw("fill")
 	love.graphics.draw(kosmos)
-	love.graphics.setFont(s1)
 	if p16 == 0 then
 		love.graphics.setFont(s1)
 		love.graphics.print("КОСМИЧЕСКИЕ БОИ", 5)
-		love.graphics.draw(start, 225, 200, 0, 0.4, 0.4)
 	end
 	function drawhp()
 		love.graphics.draw(hp1, x41, y4, r4, z4, z4)
@@ -706,7 +713,6 @@ function love.draw()
 		love.graphics.draw(hpv8, x428, y4, r4, z4, z4)
 		love.graphics.draw(hpv9, x429, y4, r4, z4, z4)
 		love.graphics.draw(hpv10, x4210, y4, r4, z4, z4)
-		ship:draw("fill")
 	end
 	drawhp()
 	function draw()
