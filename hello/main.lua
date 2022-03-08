@@ -1,8 +1,8 @@
 local hc = require "lib/hc"
 local timer = require "lib/timer"
 math.randomseed(os.time())
-x = 150
-y = 300
+x = 1000
+y = 1000
 r = math.pi / 2
 z = 0.15
 x40 = 1000
@@ -44,9 +44,7 @@ p12 = 0
 p13 = 0
 p14 = 10
 p15 = 10
-if p16 == nil then
-	p16 = 1
-end
+p16 = 0
 p17 = 0
 p18 = 0
 v4 = 0
@@ -90,8 +88,8 @@ function pula_load(r2, name)
 	p4 = p4 + 1
 end
 function loser_load(r3, v3)
-	tx3[p11] = 650
-	ty3[p11] = 300
+	tx3[p11] = 1000
+	ty3[p11] = 1000
 	tr3[p7] = r3
 	loserk[p7] = love.graphics.newImage("res/loser1.jpg")
 	loser1[p7] = hc.polygon(330*z3,0, 870*z3,0, 870*z3,200*z3, 1200*z3,200*z3, 1200*z3,700*z3, 1000*z3,700*z3, 1000*z3,800*z3, 200*z3,800*z3, 200*z3,700*z3, 0,700*z3, 0,200*z3, 330*z3,200*z3)
@@ -124,8 +122,8 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 		p5 = 0
 	end
 end
-function loser_update(v3, x3, y3)
-	if p10 == 1 then
+function loser_update(v3)
+	if p10 == 1 and p16 == 1 then
 		tx2[p8] = ix2[p8] + erx[p8]
 		ty2[p8] = iy2[p8] + ery[p8]
 		pula[p8]:moveTo(ix2[p8], iy2[p8])
@@ -143,7 +141,7 @@ function loser_update(v3, x3, y3)
 		pula[p8]:moveTo(ix2[p8], iy2[p8])
 		p8 = p8 + 1
 	end
-	if p17 == 1 then
+	if p17 == 1 and p16 == 1 then
 		tx3[p11] = math.random(10, 790)
 		ty3[p11] = math.random(10, 590)
 	end
@@ -177,11 +175,12 @@ end
 function love.load()
 	timer.every(2, function() p10 = 1 end)
 	timer.every(2, function() p13 = 1 end)
-	timer.every(math.random(1,5), function() p17 = 1 end)
+	timer.every(3, function() p17 = 1 end)
 	player = love.graphics.newImage("res/ship.png")
 	kosmos = love.graphics.newImage("res/kosmos.png")
 	s1 = love.graphics.newFont("res/s1.ttf", 90)
 	start = love.graphics.newImage("res/start.png")
+	menu = love.graphics.newImage("res/menu.png")
 	function loadhp()
 		hp1 = love.graphics.newImage("res/hp1.png")
 		hp2 = love.graphics.newImage("res/hp2.png")
@@ -365,7 +364,7 @@ function love.update(dt)
 	end
 	ship_update()
 	function hp()
-		if p14 == 1 then
+		if p14 == 1 and p16 == 1 then
 			x40 = 1000
 			x41 = 1000
 			x42 = 1000
@@ -377,7 +376,7 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 1000
 			x410 = 10
-		elseif p14 == 2 then
+		elseif p14 == 2 and p16 == 1 then
 			x40 = 1000
 			x41 = 1000
 			x42 = 1000
@@ -389,7 +388,7 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 10
 			x410 = 1000
-		elseif p14 == 3 then
+		elseif p14 == 3 and p16 == 1 then
 			x40 = 1000
 			x41 = 1000
 			x42 = 1000
@@ -401,7 +400,7 @@ function love.update(dt)
 			x48 = 10
 			x49 = 1000
 			x410 = 1000
-		elseif p14 == 4 then
+		elseif p14 == 4 and p16 == 1 then
 			x40 = 1000
 			x41 = 1000
 			x42 = 1000
@@ -413,7 +412,7 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 1000
 			x410 = 1000
-		elseif p14 == 5 then
+		elseif p14 == 5 and p16 == 1 then
 			x40 = 1000
 			x41 = 1000
 			x42 = 1000
@@ -425,7 +424,7 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 1000
 			x410 = 1000
-		elseif p14 == 6 then
+		elseif p14 == 6 and p16 == 1 then
 			x40 = 1000
 			x41 = 1000
 			x42 = 1000
@@ -437,7 +436,7 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 1000
 			x410 = 1000
-		elseif p14 == 7 then
+		elseif p14 == 7 and p16 == 1 then
 			x40 = 1000
 			x41 = 1000
 			x42 = 1000
@@ -449,7 +448,7 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 1000
 			x410 = 1000
-		elseif p14 == 8 then
+		elseif p14 == 8 and p16 == 1 then
 			x40 = 1000
 			x41 = 1000
 			x42 = 1000
@@ -461,7 +460,7 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 1000
 			x410 = 1000
-		elseif p14 == 9 then
+		elseif p14 == 9 and p16 == 1 then
 			x40 = 1000
 			x41 = 1000
 			x42 = 10
@@ -473,7 +472,7 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 1000
 			x410 = 1000
-		elseif p14 == 10 then
+		elseif p14 == 10 and p16 == 1 then
 			x40 = 1000
 			x41 = 10
 			x42 = 1000
@@ -486,7 +485,7 @@ function love.update(dt)
 			x49 = 1000
 			x410 = 1000
 		end
-		if p15 == 1 then
+		if p15 == 1 and p16 == 1 then
 			x420 = 1000
 			x421 = 1000
 			x422 = 1000
@@ -498,7 +497,7 @@ function love.update(dt)
 			x428 = 1000
 			x429 = 1000
 			x4210 = 500
-		elseif p15 == 2 then
+		elseif p15 == 2 and p16 == 1 then
 			x420 = 1000
 			x421 = 1000
 			x422 = 1000
@@ -510,7 +509,7 @@ function love.update(dt)
 			x428 = 1000
 			x429 = 500
 			x4210 = 1000
-		elseif p15 == 3 then
+		elseif p15 == 3 and p16 == 1 then
 			x420 = 1000
 			x421 = 1000
 			x422 = 1000
@@ -522,7 +521,7 @@ function love.update(dt)
 			x428 = 500
 			x429 = 1000
 			x4210 = 1000
-		elseif p15 == 4 then
+		elseif p15 == 4 and p16 == 1 then
 			x420 = 1000
 			x421 = 1000
 			x422 = 1000
@@ -534,7 +533,7 @@ function love.update(dt)
 			x428 = 1000
 			x429 = 1000
 			x4210 = 1000
-		elseif p15 == 5 then
+		elseif p15 == 5 and p16 == 1 then
 			x420 = 1000
 			x421 = 1000
 			x422 = 1000
@@ -546,7 +545,7 @@ function love.update(dt)
 			x428 = 1000
 			x429 = 1000
 			x4210 = 1000
-		elseif p15 == 6 then
+		elseif p15 == 6 and p16 == 1 then
 			x420 = 1000
 			x421 = 1000
 			x422 = 1000
@@ -558,7 +557,7 @@ function love.update(dt)
 			x428 = 1000
 			x429 = 1000
 			x4210 = 1000
-		elseif p15 == 7 then
+		elseif p15 == 7 and p16 == 1 then
 			x420 = 1000
 			x421 = 1000
 			x422 = 1000
@@ -570,7 +569,7 @@ function love.update(dt)
 			x428 = 1000
 			x429 = 1000
 			x4210 = 1000
-		elseif p15 == 8 then
+		elseif p15 == 8 and p16 == 1 then
 			x420 = 1000
 			x421 = 1000
 			x422 = 1000
@@ -582,7 +581,7 @@ function love.update(dt)
 			x428 = 1000
 			x429 = 1000
 			x4210 = 1000
-		elseif p15 == 9 then
+		elseif p15 == 9 and p16 == 1 then
 			x420 = 1000
 			x421 = 1000
 			x422 = 500
@@ -594,7 +593,7 @@ function love.update(dt)
 			x428 = 1000
 			x429 = 1000
 			x4210 = 1000
-		elseif p15 == 10 then
+		elseif p15 == 10 and p16 == 1 then
 			x420 = 1000
 			x421 = 500
 			x422 = 1000
@@ -611,7 +610,7 @@ function love.update(dt)
 	hp()
 	function update()
 		-------------------------------------
-		loser_update(1, 500, 500)
+		loser_update(1)
 		-------------------------------------
 		pula_update(-200, 0, tx3[0], ty3[0], -50, 20,1)
 		pula_update(200, 0, tx3[0], ty3[0], 50, 20,1)
