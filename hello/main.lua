@@ -282,7 +282,8 @@ function love.update(dt)
 	function ship_update()
 		if p16 == 1 and p19 == 1 then
 			x = 150
-			y = 400
+			y = 300
+			ship:moveTo(x,y)
 			p19 = 0
 		end
 		if love.keyboard.isDown("w") and y >= 0 and p16 == 1 then
@@ -684,9 +685,9 @@ end
 
 function love.draw()
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(player, x, y, r, z, z, 180, 180)
-	ship:draw("fill")
 	love.graphics.draw(kosmos)
+	love.graphics.draw(player, x, y, r, z, z, 180, 180)
+	--ship:draw("fill")
 	if p16 == 0 then
 		love.graphics.setFont(s1)
 		love.graphics.print("КОСМИЧЕСКИЕ БОИ", 5)
