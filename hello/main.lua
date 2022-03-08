@@ -109,9 +109,9 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 		tx2[p5] = 1000
 		ty2[p5] = 1000
 		pula[p5]:moveTo(1000, 1000)
-		if v2 == 1 then
+		if v2 == 1 and p16 == 1 then
 			p14 = p14 - 1
-		elseif v2 == 2 then
+		elseif v2 == 2 and p16 == 1 then
 			p15 = p15 - 1
 		end
 	end
@@ -274,6 +274,7 @@ function love.load()
 	loadf()
 end
 function love.update(dt)
+	print(p14, p15)
 	timer.update(dt)
 	if love.keyboard.isDown("rshift") and p16 == 0 then
 		p16 = 1
