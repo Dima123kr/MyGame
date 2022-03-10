@@ -5,6 +5,8 @@ x = 1000
 y = 1000
 r = math.pi / 2
 z = 0.15
+z2 = 0.035
+z3 = 0.05
 x40 = 1000
 x41 = 1000
 x42 = 1000
@@ -30,8 +32,10 @@ x4210 = 1000
 y4 = 10
 r4 = 0
 z4 = 0.6
-z3 = 0.05
-z2 = 0.035
+x5 = 1000
+y5 = 1000
+x6 = 1000
+y6 = 1000
 p4 = 0
 p5 = 0
 p6 = 0
@@ -48,6 +52,8 @@ p16 = 0
 p17 = 0
 p18 = 0
 p19 = 0
+p20 = 0
+p21 = 0
 v4 = 0
 pulak = {}
 pula1 = {}
@@ -89,8 +95,8 @@ function pula_load(r2, name)
 	p4 = p4 + 1
 end
 function loser_load(r3, v3)
-	tx3[p11] = 1000
-	ty3[p11] = 1000
+	tx3[p11] = -1000
+	ty3[p11] = -1000
 	tr3[p7] = r3
 	loserk[p7] = love.graphics.newImage("res/loser1.jpg")
 	loser1[p7] = hc.polygon(330*z3,0, 870*z3,0, 870*z3,200*z3, 1200*z3,200*z3, 1200*z3,700*z3, 1000*z3,700*z3, 1000*z3,800*z3, 200*z3,800*z3, 200*z3,700*z3, 0,700*z3, 0,200*z3, 330*z3,200*z3)
@@ -179,7 +185,10 @@ function love.load()
 	timer.every(3, function() p17 = 1 end)
 	player = love.graphics.newImage("res/ship.png")
 	kosmos = love.graphics.newImage("res/kosmos.png")
+	win = love.graphics.newImage("res/win.png")
+	lose = love.graphics.newImage("res/lose.png")
 	s1 = love.graphics.newFont("res/s1.ttf", 90)
+	s2 = love.graphics.newFont("res/s1.ttf", 30)
 	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
 	ship = hc.register(ship1)
 	ship:setRotation(r)
@@ -274,11 +283,18 @@ function love.load()
 	loadf()
 end
 function love.update(dt)
-	print(p14, p15)
 	timer.update(dt)
 	if love.keyboard.isDown("rshift") and p16 == 0 then
 		p16 = 1
 		p19 = 1
+		p14 = 10
+		p15 = 10
+	elseif love.keyboard.isDown("lshift") and p16 == 2 then
+		p16 = 0
+		x5 = 1000
+		y5 = 1000
+		x6 = 1000
+		y6 = 1000
 	end
 	function ship_update()
 		if p16 == 1 and p19 == 1 then
@@ -494,6 +510,36 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 1000
 			x410 = 1000
+		elseif p14 <= 0 and p16 == 1 then
+			p16 = 2
+			x6 = 150
+			y6 = 150
+			x = 1000
+			y = 1000
+			tx3[0] = -1000
+			ty3[0] = -1000
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 1000
+			x424 = 1000
+			x425 = 1000
+			x426 = 1000
+			x427 = 1000
+			x428 = 1000
+			x429 = 1000
+			x4210 = 1000
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 1000
+			x44 = 1000
+			x45 = 1000
+			x46 = 1000
+			x47 = 1000
+			x48 = 1000
+			x49 = 1000
+			x410 = 1000
 		end
 		if p15 == 1 and p16 == 1 then
 			x420 = 1000
@@ -615,6 +661,36 @@ function love.update(dt)
 			x428 = 1000
 			x429 = 1000
 			x4210 = 1000
+		elseif p15 <= 0 and p16 == 1 then
+			p16 = 2
+			x5 = 150
+			y5 = 150
+			x = 1000
+			y = 1000
+			tx3[0] = -1000
+			ty3[0] = -1000
+			x420 = 1000
+			x421 = 1000
+			x422 = 1000
+			x423 = 1000
+			x424 = 1000
+			x425 = 1000
+			x426 = 1000
+			x427 = 1000
+			x428 = 1000
+			x429 = 1000
+			x4210 = 1000
+			x40 = 1000
+			x41 = 1000
+			x42 = 1000
+			x43 = 1000
+			x44 = 1000
+			x45 = 1000
+			x46 = 1000
+			x47 = 1000
+			x48 = 1000
+			x49 = 1000
+			x410 = 1000
 		end
 	end
 	hp()
@@ -686,12 +762,21 @@ end
 
 function love.draw()
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(kosmos)
+	if p16 ~= 2 then
+		love.graphics.draw(kosmos)
+	end
+	love.graphics.draw(win, x5, y5)
+	love.graphics.draw(lose, x6, y6)
 	love.graphics.draw(player, x, y, r, z, z, 180, 180)
 	--ship:draw("fill")
 	if p16 == 0 then
 		love.graphics.setFont(s1)
 		love.graphics.print("КОСМИЧЕСКИЕ БОИ", 5)
+		love.graphics.setFont(s2)
+		love.graphics.print("Чтобы пойти в бой нажми левый 'shift'", 100, 400)
+	elseif p16 == 2 then
+		love.graphics.setFont(s2)
+		love.graphics.print("Чтобы пойти в бой нажми правый 'shift'", 100, 400)
 	end
 	function drawhp()
 		love.graphics.draw(hp1, x41, y4, r4, z4, z4)
