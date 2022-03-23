@@ -55,6 +55,12 @@ p19 = 0
 p20 = 0
 p21 = 0
 v4 = 0
+file = io.open("file.txt", "r")
+coins = file:read("*a")
+if coins == "" then
+	coins = 0
+end
+file:close()
 pulak = {}
 pula1 = {}
 pula = {}
@@ -187,8 +193,10 @@ function love.load()
 	kosmos = love.graphics.newImage("res/kosmos.png")
 	win = love.graphics.newImage("res/win.png")
 	lose = love.graphics.newImage("res/lose.png")
+	coin = love.graphics.newImage("res/coin.png")
 	s1 = love.graphics.newFont("res/s1.ttf", 90)
 	s2 = love.graphics.newFont("res/s1.ttf", 30)
+	s3 = love.graphics.newFont("res/s1.ttf", 40)
 	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
 	ship = hc.register(ship1)
 	ship:setRotation(r)
@@ -691,6 +699,11 @@ function love.update(dt)
 			x48 = 1000
 			x49 = 1000
 			x410 = 1000
+			file = io.open("file.txt", "w")
+			coins = coins + 1000
+			file:write(coins)
+			file:flush()
+			file:close()
 		end
 	end
 	hp()
@@ -769,6 +782,9 @@ function love.draw()
 	love.graphics.draw(lose, x6, y6)
 	love.graphics.draw(player, x, y, r, z, z, 180, 180)
 	--ship:draw("fill")
+	love.graphics.draw(coin, 5, 560, 0, 0.25, 0.25)
+	love.graphics.setFont(s3)
+	love.graphics.print(coins,50,565)
 	if p16 == 0 then
 		love.graphics.setFont(s1)
 		love.graphics.print("КОСМИЧЕСКИЕ БОИ", 5)
@@ -776,7 +792,7 @@ function love.draw()
 		love.graphics.print("Чтобы пойти в бой нажми левый 'shift'", 100, 400)
 	elseif p16 == 2 then
 		love.graphics.setFont(s2)
-		love.graphics.print("Чтобы пойти в бой нажми правый 'shift'", 100, 400)
+		love.graphics.print("Чтобы выйти в меню нажми правый 'shift'", 100, 400)
 	end
 	function drawhp()
 		love.graphics.draw(hp1, x41, y4, r4, z4, z4)
