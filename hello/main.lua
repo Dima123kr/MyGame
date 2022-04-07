@@ -355,7 +355,6 @@ function love.update(dt)
 			if p12 == 6 then
 				p12 = 0
 			end
-			p13 = 0
 			p22 = 0
 		end
 		if love.keyboard.isDown("space") and r == math.pi and p13 >= 25 and p16 == 1 and p22 == 1 then
@@ -371,7 +370,6 @@ function love.update(dt)
 			if p12 == 6 then
 				p12 = 0
 			end
-			p13 = 0
 			p22 = 0
 		end
 		if love.keyboard.isDown("space") and r == math.pi / 2 and p13 >= 25 and p16 == 1 and p22 == 1 then
@@ -387,10 +385,9 @@ function love.update(dt)
 			if p12 == 6 then
 				p12 = 0
 			end
-			p13 = 0
 			p22 = 0
 		end
-		if love.keyboard.isDown("space") and r == -math.pi / 2 and p13 >= 25 and p16 == 1 and mp22 == 1 then
+		if love.keyboard.isDown("space") and r == -math.pi / 2 and p13 >= 25 and p16 == 1 and p22 == 1 then
 			tx2[p12 + 24] = x - 45 + erx[p12 + 24]
 			ty2[p12 + 24] = y + 24 + ery[p12 + 24]
 			pula[p12 + 24]:moveTo(x - 45, y + 24)
@@ -403,7 +400,6 @@ function love.update(dt)
 			if p12 == 6 then
 				p12 = 0
 			end
-			p13 = 0
 			p22 = 0
 		end
 	end
