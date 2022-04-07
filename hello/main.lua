@@ -54,6 +54,7 @@ p18 = 0
 p19 = 0
 p20 = 0
 p21 = 0
+p22 = 0
 v4 = 0
 file = io.open("file.txt", "r")
 coins = file:read("*a")
@@ -189,6 +190,7 @@ function love.load()
 	timer.every(2, function() p10 = 1 end)
 	timer.every(0.125, function() if p13 < 75 then p13 = p13 + 1.5625 end end)
 	timer.every(3, function() p17 = 1 end)
+	timer.every(0.5, function() p22 = 1 end)
 	player = love.graphics.newImage("res/ship.png")
 	kosmos = love.graphics.newImage("res/kosmos.png")
 	win = love.graphics.newImage("res/win.png")
@@ -340,7 +342,7 @@ function love.update(dt)
 			ship:setRotation(r)
 			ship:move(100 * dt, 0)
 		end
-		if love.keyboard.isDown("space") and r == 0 and p13 == 1 and p16 == 1 then
+		if love.keyboard.isDown("space") and r == 0 and p13 >= 25 and p16 == 1 and p22 == 1 then
 			tx2[p12 + 42] = x - 24 + erx[p12 + 42]
 			ty2[p12 + 42] = y - 45 + ery[p12 + 42]
 			pula[p12 + 42]:moveTo(x - 24, y - 45)
@@ -349,12 +351,14 @@ function love.update(dt)
 			ty2[p12 + 42] = y - 45 + ery[p12 + 42]
 			pula[p12 + 42]:moveTo(x + 24, y - 45)
 			p12 = p12 + 1
+			p13 = p13 - 25
 			if p12 == 6 then
 				p12 = 0
 			end
 			p13 = 0
+			p22 = 0
 		end
-		if love.keyboard.isDown("space") and r == math.pi and p13 == 1 and p16 == 1 then
+		if love.keyboard.isDown("space") and r == math.pi and p13 >= 25 and p16 == 1 and p22 == 1 then
 			tx2[p12 + 36] = x + 24 + erx[p12 + 36]
 			ty2[p12 + 36] = y + 45 + ery[p12 + 36]
 			pula[p12 + 36]:moveTo(x + 24, y + 45)
@@ -363,12 +367,14 @@ function love.update(dt)
 			ty2[p12 + 36] = y + 45 + ery[p12 + 36]
 			pula[p12 + 36]:moveTo(x - 24, y + 45)
 			p12 = p12 + 1
+			p13 = p13 - 25
 			if p12 == 6 then
 				p12 = 0
 			end
 			p13 = 0
+			p22 = 0
 		end
-		if love.keyboard.isDown("space") and r == math.pi / 2 and p13 == 1 and p16 == 1 then
+		if love.keyboard.isDown("space") and r == math.pi / 2 and p13 >= 25 and p16 == 1 and p22 == 1 then
 			tx2[p12 + 30] = x + 45 + erx[p12 + 30]
 			ty2[p12 + 30] = y - 24 + ery[p12 + 30]
 			pula[p12 + 30]:moveTo(x + 45, y - 24)
@@ -377,12 +383,14 @@ function love.update(dt)
 			ty2[p12 + 30] = y + 24 + ery[p12 + 30]
 			pula[p12 + 30]:moveTo(x + 45, y + 24)
 			p12 = p12 + 1
+			p13 = p13 - 25
 			if p12 == 6 then
 				p12 = 0
 			end
 			p13 = 0
+			p22 = 0
 		end
-		if love.keyboard.isDown("space") and r == -math.pi / 2 and p13 == 1 and p16 == 1 then
+		if love.keyboard.isDown("space") and r == -math.pi / 2 and p13 >= 25 and p16 == 1 and mp22 == 1 then
 			tx2[p12 + 24] = x - 45 + erx[p12 + 24]
 			ty2[p12 + 24] = y + 24 + ery[p12 + 24]
 			pula[p12 + 24]:moveTo(x - 45, y + 24)
@@ -391,10 +399,12 @@ function love.update(dt)
 			ty2[p12 + 24] = y - 24 + ery[p12 + 24]
 			pula[p12 + 24]:moveTo(x - 45, y - 24)
 			p12 = p12 + 1
+			p13 = p13 - 25
 			if p12 == 6 then
 				p12 = 0
 			end
 			p13 = 0
+			p22 = 0
 		end
 	end
 	ship_update()
@@ -775,7 +785,7 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.setColor(255, 255, 255)
+	love.graphics.setColor(1, 1, 1)
 	if p16 ~= 2 then
 		love.graphics.draw(kosmos)
 	end
@@ -784,6 +794,9 @@ function love.draw()
 	love.graphics.draw(player, x, y, r, z, z, 180, 180)
 	--ship:draw("fill")
 	love.graphics.draw(coin, 5, 560, 0, 0.25, 0.25)
+	love.graphics.setColor(0.8, 0.8, 0.8)
+	love.graphics.rectangle("fill", x - 37, y - 50, p13, 20 * 0.75)
+	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(puli, x - 37, y - 50, 0, 0.75, 0.75)
 	love.graphics.setFont(s3)
 	love.graphics.print(coins,50,565)
