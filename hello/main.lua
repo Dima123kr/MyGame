@@ -105,7 +105,7 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 		if v2 == 1 and p16 == 1 then
 			phpp = phpp - 100
 		elseif v2 == 2 and p16 == 1 then
-			p15 = p15 - 1
+			phpv = phpv - 100
 		end
 	end
 	tx2[p5] = tx2[p5] + vx * love.timer.getDelta()
@@ -361,7 +361,7 @@ function love.update(dt)
 			tx3[0] = -1000
 			ty3[0] = -1000
 		end
-		if p15 <= 0 and p16 == 1 then
+		if phpv <= 0 and p16 == 1 then
 			p16 = 2
 			x5 = 150
 			y5 = 150
@@ -532,7 +532,7 @@ function love.mousepressed(x4, y4, button, istouch, presses)
 		p19 = 1
 		phpp = 1000
 		phpv = 1000
-	elseif button == 1 and x4 < 510 and x4 > 250 and y4 < 415 and y4 > 350 and p16 == 0 then
+	elseif button == 1 and x4 < 510 and x4 > 250 and y4 < 415 and y4 > 350 and p16 == 2 then
 		p16 = 0
 		x5 = 1000
 		y5 = 1000
