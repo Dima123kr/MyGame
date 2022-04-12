@@ -7,28 +7,8 @@ r = math.pi / 2
 z = 0.15
 z2 = 0.035
 z3 = 0.05
-x40 = 1000
-x41 = 1000
-x42 = 1000
-x43 = 1000
-x44 = 1000
-x45 = 1000
-x46 = 1000
-x47 = 1000
-x48 = 1000
-x49 = 1000
-x410 = 1000
-x420 = 1000
-x421 = 1000
-x422 = 1000
-x423 = 1000
-x424 = 1000
-x425 = 1000
-x426 = 1000
-x427 = 1000
-x428 = 1000
-x429 = 1000
-x4210 = 1000
+phpp = 0
+phpv = 0
 y4 = 10
 r4 = 0
 z4 = 0.6
@@ -123,7 +103,7 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 		ty2[p5] = 1000
 		pula[p5]:moveTo(1000, 1000)
 		if v2 == 1 and p16 == 1 then
-			p14 = p14 - 1
+			phpp = phpp - 100
 		elseif v2 == 2 and p16 == 1 then
 			p15 = p15 - 1
 		end
@@ -197,6 +177,8 @@ function love.load()
 	lose = love.graphics.newImage("res/lose.png")
 	coin = love.graphics.newImage("res/coin.png")
 	puli = love.graphics.newImage("res/puli.png")
+	hpp = love.graphics.newImage("res/hp.png")
+	hpv = love.graphics.newImage("res/hp.png")
 	s1 = love.graphics.newFont("res/s1.ttf", 90)
 	s2 = love.graphics.newFont("res/s1.ttf", 30)
 	s3 = love.graphics.newFont("res/s1.ttf", 40)
@@ -204,30 +186,6 @@ function love.load()
 	ship = hc.register(ship1)
 	ship:setRotation(r)
 	ship:moveTo(x, y)
-	function loadhp()
-		hp1 = love.graphics.newImage("res/hp1.png")
-		hp2 = love.graphics.newImage("res/hp2.png")
-		hp3 = love.graphics.newImage("res/hp3.png")
-		hp4 = love.graphics.newImage("res/hp4.png")
-		hp5 = love.graphics.newImage("res/hp5.png")
-		hp6 = love.graphics.newImage("res/hp6.png")
-		hp7 = love.graphics.newImage("res/hp7.png")
-		hp8 = love.graphics.newImage("res/hp8.png")
-		hp9 = love.graphics.newImage("res/hp9.png")
-		hp10 = love.graphics.newImage("res/hp10.png")
-		----------------------------------------------------
-		hpv1 = love.graphics.newImage("res/hpv1.png")
-		hpv2 = love.graphics.newImage("res/hpv2.png")
-		hpv3 = love.graphics.newImage("res/hpv3.png")
-		hpv4 = love.graphics.newImage("res/hpv4.png")
-		hpv5 = love.graphics.newImage("res/hpv5.png")
-		hpv6 = love.graphics.newImage("res/hpv6.png")
-		hpv7 = love.graphics.newImage("res/hpv7.png")
-		hpv8 = love.graphics.newImage("res/hpv8.png")
-		hpv9 = love.graphics.newImage("res/hpv9.png")
-		hpv10 = love.graphics.newImage("res/hpv10.png")
-	end
-	loadhp()
 	function loadf()
 		---------------------------------
 		loser_load(0)
@@ -298,8 +256,8 @@ function love.update(dt)
 	if love.keyboard.isDown("rshift") and p16 == 0 then
 		p16 = 1
 		p19 = 1
-		p14 = 10
-		p15 = 10
+		phpp = 1000
+		phpv = 1000
 	elseif love.keyboard.isDown("lshift") and p16 == 2 then
 		p16 = 0
 		x5 = 1000
@@ -405,127 +363,7 @@ function love.update(dt)
 	end
 	ship_update()
 	function hp()
-		if p14 == 1 and p16 == 1 then
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 1000
-			x44 = 1000
-			x45 = 1000
-			x46 = 1000
-			x47 = 1000
-			x48 = 1000
-			x49 = 1000
-			x410 = 10
-		elseif p14 == 2 and p16 == 1 then
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 1000
-			x44 = 1000
-			x45 = 1000
-			x46 = 1000
-			x47 = 1000
-			x48 = 1000
-			x49 = 10
-			x410 = 1000
-		elseif p14 == 3 and p16 == 1 then
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 1000
-			x44 = 1000
-			x45 = 1000
-			x46 = 1000
-			x47 = 1000
-			x48 = 10
-			x49 = 1000
-			x410 = 1000
-		elseif p14 == 4 and p16 == 1 then
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 1000
-			x44 = 1000
-			x45 = 1000
-			x46 = 1000
-			x47 = 10
-			x48 = 1000
-			x49 = 1000
-			x410 = 1000
-		elseif p14 == 5 and p16 == 1 then
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 1000
-			x44 = 1000
-			x45 = 1000
-			x46 = 10
-			x47 = 1000
-			x48 = 1000
-			x49 = 1000
-			x410 = 1000
-		elseif p14 == 6 and p16 == 1 then
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 1000
-			x44 = 1000
-			x45 = 10
-			x46 = 1000
-			x47 = 1000
-			x48 = 1000
-			x49 = 1000
-			x410 = 1000
-		elseif p14 == 7 and p16 == 1 then
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 1000
-			x44 = 10
-			x45 = 1000
-			x46 = 1000
-			x47 = 1000
-			x48 = 1000
-			x49 = 1000
-			x410 = 1000
-		elseif p14 == 8 and p16 == 1 then
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 10
-			x44 = 1000
-			x45 = 1000
-			x46 = 1000
-			x47 = 1000
-			x48 = 1000
-			x49 = 1000
-			x410 = 1000
-		elseif p14 == 9 and p16 == 1 then
-			x40 = 1000
-			x41 = 1000
-			x42 = 10
-			x43 = 1000
-			x44 = 1000
-			x45 = 1000
-			x46 = 1000
-			x47 = 1000
-			x48 = 1000
-			x49 = 1000
-			x410 = 1000
-		elseif p14 == 10 and p16 == 1 then
-			x40 = 1000
-			x41 = 10
-			x42 = 1000
-			x43 = 1000
-			x44 = 1000
-			x45 = 1000
-			x46 = 1000
-			x47 = 1000
-			x48 = 1000
-			x49 = 1000
-			x410 = 1000
-		elseif p14 <= 0 and p16 == 1 then
+		if phpp <= 0 and p16 == 1 then
 			p16 = 2
 			x6 = 150
 			y6 = 150
@@ -533,150 +371,8 @@ function love.update(dt)
 			y = 1000
 			tx3[0] = -1000
 			ty3[0] = -1000
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 1000
-			x424 = 1000
-			x425 = 1000
-			x426 = 1000
-			x427 = 1000
-			x428 = 1000
-			x429 = 1000
-			x4210 = 1000
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 1000
-			x44 = 1000
-			x45 = 1000
-			x46 = 1000
-			x47 = 1000
-			x48 = 1000
-			x49 = 1000
-			x410 = 1000
 		end
-		if p15 == 1 and p16 == 1 then
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 1000
-			x424 = 1000
-			x425 = 1000
-			x426 = 1000
-			x427 = 1000
-			x428 = 1000
-			x429 = 1000
-			x4210 = 500
-		elseif p15 == 2 and p16 == 1 then
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 1000
-			x424 = 1000
-			x425 = 1000
-			x426 = 1000
-			x427 = 1000
-			x428 = 1000
-			x429 = 500
-			x4210 = 1000
-		elseif p15 == 3 and p16 == 1 then
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 1000
-			x424 = 1000
-			x425 = 1000
-			x426 = 1000
-			x427 = 1000
-			x428 = 500
-			x429 = 1000
-			x4210 = 1000
-		elseif p15 == 4 and p16 == 1 then
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 1000
-			x424 = 1000
-			x425 = 1000
-			x426 = 1000
-			x427 = 500
-			x428 = 1000
-			x429 = 1000
-			x4210 = 1000
-		elseif p15 == 5 and p16 == 1 then
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 1000
-			x424 = 1000
-			x425 = 1000
-			x426 = 500
-			x427 = 1000
-			x428 = 1000
-			x429 = 1000
-			x4210 = 1000
-		elseif p15 == 6 and p16 == 1 then
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 1000
-			x424 = 1000
-			x425 = 500
-			x426 = 1000
-			x427 = 1000
-			x428 = 1000
-			x429 = 1000
-			x4210 = 1000
-		elseif p15 == 7 and p16 == 1 then
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 1000
-			x424 = 500
-			x425 = 1000
-			x426 = 1000
-			x427 = 1000
-			x428 = 1000
-			x429 = 1000
-			x4210 = 1000
-		elseif p15 == 8 and p16 == 1 then
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 500
-			x424 = 1000
-			x425 = 1000
-			x426 = 1000
-			x427 = 1000
-			x428 = 1000
-			x429 = 1000
-			x4210 = 1000
-		elseif p15 == 9 and p16 == 1 then
-			x420 = 1000
-			x421 = 1000
-			x422 = 500
-			x423 = 1000
-			x424 = 1000
-			x425 = 1000
-			x426 = 1000
-			x427 = 1000
-			x428 = 1000
-			x429 = 1000
-			x4210 = 1000
-		elseif p15 == 10 and p16 == 1 then
-			x420 = 1000
-			x421 = 500
-			x422 = 1000
-			x423 = 1000
-			x424 = 1000
-			x425 = 1000
-			x426 = 1000
-			x427 = 1000
-			x428 = 1000
-			x429 = 1000
-			x4210 = 1000
-		elseif p15 <= 0 and p16 == 1 then
+		if p15 <= 0 and p16 == 1 then
 			p16 = 2
 			x5 = 150
 			y5 = 150
@@ -684,28 +380,6 @@ function love.update(dt)
 			y = 1000
 			tx3[0] = -1000
 			ty3[0] = -1000
-			x420 = 1000
-			x421 = 1000
-			x422 = 1000
-			x423 = 1000
-			x424 = 1000
-			x425 = 1000
-			x426 = 1000
-			x427 = 1000
-			x428 = 1000
-			x429 = 1000
-			x4210 = 1000
-			x40 = 1000
-			x41 = 1000
-			x42 = 1000
-			x43 = 1000
-			x44 = 1000
-			x45 = 1000
-			x46 = 1000
-			x47 = 1000
-			x48 = 1000
-			x49 = 1000
-			x410 = 1000
 			file = io.open("file.txt", "w")
 			coins = coins + 1000
 			file:write(coins)
@@ -792,8 +466,13 @@ function love.draw()
 	love.graphics.draw(coin, 5, 560, 0, 0.25, 0.25)
 	love.graphics.setColor(0.8, 0.8, 0.8)
 	love.graphics.rectangle("fill", x - 37, y - 50, p13, 20 * 0.75)
+	love.graphics.setColor(0.8, 0.8, 0.8)
+	love.graphics.rectangle("fill", x - 37, y - 70, phpp / 13.5, 20 * 0.75)
+	love.graphics.rectangle("fill", tx3[0] - 37, ty3[0] - 30, phpv / 13.5, 20 * 0.75)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(puli, x - 37, y - 50, 0, 0.75, 0.75)
+	love.graphics.draw(hpp, x - 37, y - 70, 0, 0.75, 0.75)
+	love.graphics.draw(hpv, tx3[0] - 37, ty3[0] - 30, 0, 0.75, 0.75)
 	love.graphics.setFont(s3)
 	love.graphics.print(coins,50,565)
 	if p16 == 0 then
@@ -805,30 +484,6 @@ function love.draw()
 		love.graphics.setFont(s2)
 		love.graphics.print("Чтобы выйти в меню нажми правый 'shift'", 100, 400)
 	end
-	function drawhp()
-		love.graphics.draw(hp1, x41, y4, r4, z4, z4)
-		love.graphics.draw(hp2, x42, y4, r4, z4, z4)
-		love.graphics.draw(hp3, x43, y4, r4, z4, z4)
-		love.graphics.draw(hp4, x44, y4, r4, z4, z4)
-		love.graphics.draw(hp5, x45, y4, r4, z4, z4)
-		love.graphics.draw(hp6, x46, y4, r4, z4, z4)
-		love.graphics.draw(hp7, x47, y4, r4, z4, z4)
-		love.graphics.draw(hp8, x48, y4, r4, z4, z4)
-		love.graphics.draw(hp9, x49, y4, r4, z4, z4)
-		love.graphics.draw(hp10, x410, y4, r4, z4, z4)
-		---------------------------------------------------
-		love.graphics.draw(hpv1, x421, y4, r4, z4, z4)
-		love.graphics.draw(hpv2, x422, y4, r4, z4, z4)
-		love.graphics.draw(hpv3, x423, y4, r4, z4, z4)
-		love.graphics.draw(hpv4, x424, y4, r4, z4, z4)
-		love.graphics.draw(hpv5, x425, y4, r4, z4, z4)
-		love.graphics.draw(hpv6, x426, y4, r4, z4, z4)
-		love.graphics.draw(hpv7, x427, y4, r4, z4, z4)
-		love.graphics.draw(hpv8, x428, y4, r4, z4, z4)
-		love.graphics.draw(hpv9, x429, y4, r4, z4, z4)
-		love.graphics.draw(hpv10, x4210, y4, r4, z4, z4)
-	end
-	drawhp()
 	function draw()
 		loser_draw()
 		-----------------------------------
