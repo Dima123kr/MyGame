@@ -252,19 +252,8 @@ function love.load()
 	loadf()
 end
 function love.update(dt)
+	print(love.mouse.getPosition())
 	timer.update(dt)
-	if love.keyboard.isDown("rshift") and p16 == 0 then
-		p16 = 1
-		p19 = 1
-		phpp = 1000
-		phpv = 1000
-	elseif love.keyboard.isDown("lshift") and p16 == 2 then
-		p16 = 0
-		x5 = 1000
-		y5 = 1000
-		x6 = 1000
-		y6 = 1000
-	end
 	function ship_update()
 		if p16 == 1 and p19 == 1 then
 			x = 150
@@ -478,11 +467,9 @@ function love.draw()
 	if p16 == 0 then
 		love.graphics.setFont(s1)
 		love.graphics.print("КОСМИЧЕСКИЕ БОИ", 5)
-		love.graphics.setFont(s2)
-		love.graphics.print("Чтобы пойти в бой нажми левый 'shift'", 100, 400)
+		love.graphics.print("В БОЙ", 250, 350)
 	elseif p16 == 2 then
-		love.graphics.setFont(s2)
-		love.graphics.print("Чтобы выйти в меню нажми правый 'shift'", 100, 400)
+		love.graphics.print("В МЕНЮ", 250, 350)
 	end
 	function draw()
 		loser_draw()
@@ -537,4 +524,19 @@ function love.draw()
 		pula_draw()
 	end
 	draw()
+end
+
+function love.mousepressed(x4, y4, button, istouch, presses)
+	if button == 1 and x4 < 510 and x4 > 250 and y4 < 415 and y4 > 350 and p16 == 0 then
+		p16 = 1
+		p19 = 1
+		phpp = 1000
+		phpv = 1000
+	elseif button == 1 and x4 < 510 and x4 > 250 and y4 < 415 and y4 > 350 and p16 == 0 then
+		p16 = 0
+		x5 = 1000
+		y5 = 1000
+		x6 = 1000
+		y6 = 1000
+	end
 end
