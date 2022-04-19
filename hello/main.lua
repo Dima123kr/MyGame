@@ -39,6 +39,7 @@ p23 = 0
 p24 = 0
 p25 = 0
 p26 = 0
+p27 = 0
 v4 = 0
 file = io.open("file.txt", "r")
 coins = file:read("*a")
@@ -106,7 +107,7 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 		tx2[p5] = 1000
 		ty2[p5] = 1000
 		pula[p5]:moveTo(1000, 1000)
-		if v2 == 1 and p16 == 1 then
+		if v2 == 1 and p16 == 1 and p27 == 0 then
 			phpp = phpp - 100
 		elseif v2 == 2 and p16 == 1 and p25 == 0 then
 			phpv = phpv - 100
@@ -176,6 +177,7 @@ function love.load()
 	timer.every(0.125, function() if p13 < 75 then p13 = p13 + 1.5625 end end)
 	timer.every(3, function() p17 = 1 end)
 	timer.every(0.5, function() p22 = 1 end)
+	timer.every(10, function() p26 = 0 end)
 	player = love.graphics.newImage("res/ship.png")
 	kosmos = love.graphics.newImage("res/kosmos.png")
 	win = love.graphics.newImage("res/win.png")
@@ -188,6 +190,7 @@ function love.load()
 	hpplus = love.graphics.newImage("res/hp+.png")
 	puliplus = love.graphics.newImage("res/puli+.png")
 	shitplus = love.graphics.newImage("res/shit+.png")
+	shit = love.graphics.newImage("res/shit.png")
 	ns1 = love.graphics.newImage("res/netsposobnosti.png")
 	ns2 = love.graphics.newImage("res/netsposobnosti.png")
 	ns3 = love.graphics.newImage("res/netsposobnosti.png")
@@ -486,7 +489,7 @@ function love.draw()
 			love.graphics.setColor(1, 1, 1, 0)
 		end
 		love.graphics.draw(ns2, 670, 564)
-		if false then
+		if p26 == 0 then
 			love.graphics.setColor(1, 1, 1, 0.7)
 		else
 			love.graphics.setColor(1, 1, 1, 0)
@@ -503,6 +506,10 @@ function love.draw()
 		love.graphics.setColor(1, 0, 0)
 	end
 	love.graphics.draw(player, x, y, r, z, z, 180, 180)
+	love.graphics.setColor(1, 1, 1, 0.5)
+	if p27 == 1 then
+		love.graphics.draw(shit, x - 50, y - 50)
+	end
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(coin, 5, 560, 0, 0.25, 0.25)
 	love.graphics.setColor(0.8, 0.8, 0.8)
@@ -593,6 +600,11 @@ function love.mousepressed(x4, y4, button, istouch, presses)
 		p24 = 0
 		p25 = 1
 	elseif button == 1 and x4 < 800 and x4 > 735 and y4 < 600 and y4 > 560 and p16 == 1 and p26 == 1 then
-		
+		p26 = 0
+		timer.script(function(wait)
+			p27 = 1
+			wait(7)
+			p27 = 0
+		end)
 	end
 end
