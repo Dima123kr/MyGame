@@ -35,6 +35,10 @@ p19 = 0
 p20 = 0
 p21 = 0
 p22 = 0
+p23 = 0
+p24 = 0
+p25 = 0
+p26 = 0
 v4 = 0
 file = io.open("file.txt", "r")
 coins = file:read("*a")
@@ -104,8 +108,11 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 		pula[p5]:moveTo(1000, 1000)
 		if v2 == 1 and p16 == 1 then
 			phpp = phpp - 100
-		elseif v2 == 2 and p16 == 1 then
+		elseif v2 == 2 and p16 == 1 and p25 == 0 then
 			phpv = phpv - 100
+		elseif v2 == 2 and p16 == 1 and p25 == 1 then
+			phpv = phpv - 300
+			p25 = 0
 		end
 	end
 	tx2[p5] = tx2[p5] + vx * love.timer.getDelta()
@@ -152,7 +159,6 @@ function loser_update(v3)
 end
 function pula_draw()
 	love.graphics.draw(pulak[p6], tx2[p6], ty2[p6], tr2[p6], z2, z2)
-	--pula[p6]:draw("fill")
 	p6 = p6 + 1
 	if p6 == 48 then
 		p6 = 0
@@ -160,7 +166,6 @@ function pula_draw()
 end
 function loser_draw()
 	love.graphics.draw(loserk[p9], tx3[p9], ty3[p9], tr3[p9], z3, z3, 640, 135)
-	--loser[p9]:draw("fill")
 	p9 = p9 + 1
 	if p9 == 1 then
 		p9 = 0
@@ -179,6 +184,15 @@ function love.load()
 	puli = love.graphics.newImage("res/puli.png")
 	hpp = love.graphics.newImage("res/hp.png")
 	hpv = love.graphics.newImage("res/hp.png")
+	sposobnosti = love.graphics.newImage("res/sposobnosti.png")
+	hpplus = love.graphics.newImage("res/hp+.png")
+	puliplus = love.graphics.newImage("res/puli+.png")
+	shitplus = love.graphics.newImage("res/shit+.png")
+	ns1 = love.graphics.newImage("res/netsposobnosti.png")
+	ns2 = love.graphics.newImage("res/netsposobnosti.png")
+	ns3 = love.graphics.newImage("res/netsposobnosti.png")
+	plusg = love.graphics.newImage("res/plusg.png")
+	plusr = love.graphics.newImage("res/plusr.png")
 	s1 = love.graphics.newFont("res/s1.ttf", 90)
 	s2 = love.graphics.newFont("res/s1.ttf", 30)
 	s3 = love.graphics.newFont("res/s1.ttf", 40)
@@ -251,8 +265,9 @@ function love.load()
 	end
 	loadf()
 end
+
 function love.update(dt)
-	print(love.mouse.getPosition())
+	--print(love.mouse.getPosition())
 	timer.update(dt)
 	function ship_update()
 		if p16 == 1 and p19 == 1 then
@@ -360,6 +375,8 @@ function love.update(dt)
 			y = 1000
 			tx3[0] = -1000
 			ty3[0] = -1000
+		elseif phpp > 1000 then
+			phpp = 1000
 		end
 		if phpv <= 0 and p16 == 1 then
 			p16 = 2
@@ -448,10 +465,45 @@ function love.draw()
 	if p16 ~= 2 then
 		love.graphics.draw(kosmos)
 	end
+	if p16 == 0 then
+		love.graphics.setFont(s1)
+		love.graphics.print("КОСМИЧЕСКИЕ БОИ", 5)
+		love.graphics.print("В БОЙ", 250, 350)
+	elseif p16 == 1 then
+		love.graphics.draw(sposobnosti, 600, 560)
+		love.graphics.draw(hpplus, 615, 562, 0, 0.07, 0.07)
+		love.graphics.draw(puliplus, 680, 560, 0, 0.4, 0.4)
+		love.graphics.draw(shitplus, 750, 565, 0, 0.3, 0.3)
+		if p23 == 0 and p16 == 1 then
+			love.graphics.setColor(1, 1, 1, 0.7)
+		else
+			love.graphics.setColor(1, 1, 1, 0)
+		end
+		love.graphics.draw(ns1, 604, 564)
+		if p24 == 0 and p16 == 1 then
+			love.graphics.setColor(1, 1, 1, 0.7)
+		else
+			love.graphics.setColor(1, 1, 1, 0)
+		end
+		love.graphics.draw(ns2, 670, 564)
+		if false then
+			love.graphics.setColor(1, 1, 1, 0.7)
+		else
+			love.graphics.setColor(1, 1, 1, 0)
+		end
+		love.graphics.draw(ns3, 735, 564)
+		love.graphics.setColor(1, 1, 1)
+	elseif p16 == 2 then
+		love.graphics.setFont(s1)
+		love.graphics.print("В МЕНЮ", 250, 350)
+	end
 	love.graphics.draw(win, x5, y5)
 	love.graphics.draw(lose, x6, y6)
+	if p25 == 1 then
+		love.graphics.setColor(1, 0, 0)
+	end
 	love.graphics.draw(player, x, y, r, z, z, 180, 180)
-	--ship:draw("fill")
+	love.graphics.setColor(1, 1, 1)
 	love.graphics.draw(coin, 5, 560, 0, 0.25, 0.25)
 	love.graphics.setColor(0.8, 0.8, 0.8)
 	love.graphics.rectangle("fill", x - 37, y - 50, p13, 20 * 0.75)
@@ -464,13 +516,6 @@ function love.draw()
 	love.graphics.draw(hpv, tx3[0] - 37, ty3[0] - 30, 0, 0.75, 0.75)
 	love.graphics.setFont(s3)
 	love.graphics.print(coins,50,565)
-	if p16 == 0 then
-		love.graphics.setFont(s1)
-		love.graphics.print("КОСМИЧЕСКИЕ БОИ", 5)
-		love.graphics.print("В БОЙ", 250, 350)
-	elseif p16 == 2 then
-		love.graphics.print("В МЕНЮ", 250, 350)
-	end
 	function draw()
 		loser_draw()
 		-----------------------------------
@@ -532,11 +577,22 @@ function love.mousepressed(x4, y4, button, istouch, presses)
 		p19 = 1
 		phpp = 1000
 		phpv = 1000
-	elseif button == 1 and x4 < 510 and x4 > 250 and y4 < 415 and y4 > 350 and p16 == 2 then
+		p23 = 1
+		p24 = 1
+		p26 = 1
+	elseif button == 1 and x4 < 590 and x4 > 250 and y4 < 415 and y4 > 350 and p16 == 2 then
 		p16 = 0
 		x5 = 1000
 		y5 = 1000
 		x6 = 1000
 		y6 = 1000
+	elseif button == 1 and x4 < 665 and x4 > 600 and y4 < 600 and y4 > 560 and p16 == 1 and p23 == 1 then
+		p23 = 0
+		phpp = phpp + 200
+	elseif button == 1 and x4 < 730 and x4 > 670 and y4 < 600 and y4 > 560 and p16 == 1 and p24 == 1 then
+		p24 = 0
+		p25 = 1
+	elseif button == 1 and x4 < 800 and x4 > 735 and y4 < 600 and y4 > 560 and p16 == 1 and p26 == 1 then
+		
 	end
 end
