@@ -108,7 +108,7 @@ function pula_update(vx, vy, x2, y2, ox2, oy2, v2)
 		ty2[p5] = 1000
 		pula[p5]:moveTo(1000, 1000)
 		if v2 == 1 and p16 == 1 and p27 == 0 then
-			phpp = phpp - 100
+			phpp = phpp - 200
 		elseif v2 == 2 and p16 == 1 and p25 == 0 then
 			phpv = phpv - 100
 		elseif v2 == 2 and p16 == 1 and p25 == 1 then
@@ -199,6 +199,7 @@ function love.load()
 	s2 = love.graphics.newFont("res/s1.ttf", 30)
 	s3 = love.graphics.newFont("res/s1.ttf", 40)
 	s4 = love.graphics.newFont("res/s1.ttf", 15)
+	s5 = love.graphics.newFont("res/s1.ttf", 108)
 	ship1 = hc.polygon(0,65*z, 35*z,65*z, 35*z,225*z, 140*z,225*z, 140*z,0, 215*z,0, 215*z,225*z, 320*z,225*z, 320*z,65*z, 355*z,65*z, 355*z,355*z, 0,355*z)
 	ship = hc.register(ship1)
 	ship:setRotation(r)
@@ -469,8 +470,9 @@ function love.draw()
 		love.graphics.draw(kosmos)
 	end
 	if p16 == 0 then
+		love.graphics.setFont(s5)
+		love.graphics.print("SPACE BATTLES", 5)
 		love.graphics.setFont(s1)
-		love.graphics.print("КОСМИЧЕСКИЕ БОИ", 5)
 		love.graphics.print("В БОЙ", 250, 350)
 	elseif p16 == 1 then
 		love.graphics.draw(sposobnosti, 600, 560)
@@ -515,7 +517,7 @@ function love.draw()
 	love.graphics.setColor(0.8, 0.8, 0.8)
 	love.graphics.rectangle("fill", x - 37, y - 50, p13, 20 * 0.75)
 	love.graphics.rectangle("fill", x - 37, y - 70, phpp / 13.5, 20 * 0.75)
-	love.graphics.rectangle("fill", tx3[0] - 37, ty3[0] - 30, phpv / 13.5, 20 * 0.75)
+	love.graphics.rectangle("fill", tx3[0] - 37, ty3[0] - 30, phpv / 13.5 / 2, 20 * 0.75)
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.setFont(s4)
 	love.graphics.print(phpp, x - 15, y - 70)
@@ -586,7 +588,7 @@ function love.mousepressed(x4, y4, button, istouch, presses)
 		p16 = 1
 		p19 = 1
 		phpp = 1000
-		phpv = 1000
+		phpv = 2000
 		p23 = 1
 		p24 = 1
 		p26 = 1
