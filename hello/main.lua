@@ -484,16 +484,16 @@ function love.update(dt)
 	end
 	update()
 end
-if p16 == 3 then
-	love.mousemoved = function (x0, y0, dx, dy)
+love.mousemoved = function (x0, y0, dx, dy)
+	if p16 == 3 then
 		if love.mouse.isDown(1) then
-			tx = math.min(0, math.max(tx + dx, -w111))
-			ty = math.min(0, math.max(ty + dy, -h111))
+			tx = math.min(0, math.max(tx + dx, w111 * -1))
+			ty = math.min(0, math.max(ty + dy, h111 * -1))
 		end
 	end
 end
-if p16 == 3 then
-	love.draw = function ()
+love.draw = function ()
+	if p16 == 3 then
 		love.graphics.translate(tx, ty)
 		love.graphics.setColor(0, 255, 0, 100)
 		for _, circle in ipairs(circles) do
