@@ -1,5 +1,11 @@
 local hc = require "lib/hc"
 local timer = require "lib/timer"
+local camera = require "lib/camera"
+----------------
+local w111, h111
+tx, ty = 0, 0
+circles = {}
+--------------------
 math.randomseed(os.time())
 x = 1000
 y = 1000
@@ -172,6 +178,19 @@ function loser_draw()
 		p9 = 0
 	end
 end
+
+love.load = function ()
+	w111, h111 = love.graphics.getDimensions()
+	tx, ty = -w111/2, -h111/2
+	for i=1, 100 do
+		table.insert(circles, {
+			x0 = love.math.random(0, w111 * 2),
+			y0 = love.math.random(0, h111 * 2),
+			r0 = love.math.random(0, 100)
+		})
+	end
+end
+
 function love.load()
 	timer.every(2, function() p10 = 1 end)
 	timer.every(0.125, function() if p13 < 75 then p13 = p13 + 1.5625 end end)
@@ -273,6 +292,9 @@ end
 function love.update(dt)
 	--print(love.mouse.getPosition())
 	timer.update(dt)
+	if love.keyboard.isDown("1") then
+		p16 = 3
+	end
 	function ship_update()
 		if p16 == 1 and p19 == 1 then
 			x = 150
@@ -463,10 +485,31 @@ function love.update(dt)
 	end
 	update()
 end
-
+if p16 == 3 then
+	love.mousemoved = function (x0, y0, dx, dy)
+		if love.mouse.isDown(1) then
+			tx = math.min(0, math.max(tx + dx, -w111))
+			ty = math.min(0, math.max(ty + dy, -h111))
+		end
+	end
+end
+if p16 == 3 then
+	love.draw = function ()
+		love.graphics.translate(tx, ty)
+		love.graphics.setColor(0, 255, 0, 100)
+		for _, circle in ipairs(circles) do
+			love.graphics.circle("fill", circle.x0, circle.y0, circle.r0)
+			love.graphics.circle("line", circle.x0, circle.y0, circle.r0)
+		end
+		love.graphics.setColor(1, 1, 1)
+		x233, y233 = love.mouse.getPosition()
+		love.graphics.print(x233 - tx, 500, 300)
+		love.graphics.print(y233 - ty, 550, 300)
+	end
+end
 function love.draw()
 	love.graphics.setColor(1, 1, 1)
-	if p16 ~= 2 then
+	if p16 == 2 or p16 == 0 then
 		love.graphics.draw(kosmos)
 	end
 	if p16 == 0 then
