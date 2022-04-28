@@ -1,6 +1,5 @@
 local hc = require "lib/hc"
 local timer = require "lib/timer"
-local camera = require "lib/camera"
 ----------------
 local w111, h111
 tx, ty = 0, 0
@@ -89,7 +88,7 @@ function pula_load(r2, name)
 	elseif r2 == -math.pi / 2 then
 		erx[p4] = -5
 		ery[p4] = 23
-	end
+    end
 	p4 = p4 + 1
 end
 function loser_load(r3, v3)
@@ -509,7 +508,7 @@ if p16 == 3 then
 end
 function love.draw()
 	love.graphics.setColor(1, 1, 1)
-	if p16 == 2 or p16 == 0 then
+	if p16 == 1 or p16 == 0 then
 		love.graphics.draw(kosmos)
 	end
 	if p16 == 0 then
